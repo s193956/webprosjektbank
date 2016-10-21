@@ -38,6 +38,16 @@ namespace WebprosjektBankOblig.Controllers
                 Poststed = "Sandvika"
             };
 
+            // Ensure there is a user in the database
+            var nyKunde = new Kunde
+            {
+                Personnummer = "12345678912",
+                Navn = "Frank Frankenstein",
+                Adresse = "Osloveien 2",
+                Tlf = "87654321",
+                Poststed = nyPoststed
+            };
+            
             var salt = generateSalt(384);
 
             var nyAuth = new Autentisering
@@ -45,26 +55,20 @@ namespace WebprosjektBankOblig.Controllers
                 PassordSalt = salt,
                 PassordHash = Hash("123", salt),
                 engangsSeed = generateSeed(384),
-                engangsIterasjon = 1000000
+                engangsIterasjon = 1000000,
+                kunde = nyKunde
             };
 
-            // Ensure there is a user in the database
-            var nyKunde = new Kunde
-            {
-                Navn = "Frank Frankenstein",
-                Adresse = "Osloveien 2",
-                Tlf = "87654321",
-                Poststed = nyPoststed,
-                auth = nyAuth
-            };
+            nyKunde.auth = nyAuth;
 
             var db = new DBContext();
-
-            if(!db.Kunder.Any(x => x.Personnummer.Equals(nyKunde.Personnummer)))
-            {
-                db.Kunder.Add(nyKunde);
-                db.SaveChanges();
-            }
+            
+            db.Poststed.Add(nyPoststed);
+            db.SaveChanges();
+            db.Kunder.Add(nyKunde);
+            db.SaveChanges();
+            //db.Autentiseringer.Add(nyAuth);
+            db.SaveChanges();
             
             return View();
         }
@@ -155,7 +159,7 @@ namespace WebprosjektBankOblig.Controllers
                 using (var db = new DBContext())
                 {
                     //Finn KundeAutentisering knyttet til kunden
-                    var Autentisering = (from a in db.Autentiseringer where a.Kunde.Personnummer.Equals((string)pnummer) select a).Single();
+                    var Autentisering = (from a in db.Autentiseringer where a.kunde.Personnummer.Equals((string)pnummer) select a).Single();
 
                     //Lag en liste some kan holde 'NUM__PAST_ITERATIONS_TO_REMEMBER' av de foregående iterasjonene, 
                     //for å sjekke om kunden har generert flere passord en den har brukt hos banken
@@ -219,7 +223,7 @@ namespace WebprosjektBankOblig.Controllers
             if (hasOTP)
             {
                 var db = new DBContext();
-                success = db.Autentiseringer.Any(x => x.Kunde.Personnummer.Equals(pnummer) && x.PassordHash.Equals(Hash(passord, x.PassordSalt)));
+                success = db.Autentiseringer.Any(x => x.kunde.Personnummer.Equals(pnummer) && x.PassordHash.Equals(Hash(passord, x.PassordSalt)));
 
                 if (success)
                 {
@@ -230,15 +234,16 @@ namespace WebprosjektBankOblig.Controllers
             return Json(success, JsonRequestBehavior.AllowGet);
         }
 
-
-
         [HttpGet]
         public JsonResult getNextOTP(string pnummer)
         {
             using (var db = new DBContext())
             {
+               
+                var pnummerIfraAut = (from d in db.Autentiseringer select d.kunde.Personnummer).ToArray();
+
                 //Finn BankIDBrikke knyttet til kunden
-                var Auth = db.Autentiseringer.FirstOrDefault(x => x.Kunde.Personnummer.Equals(pnummer));
+                var Auth = db.Autentiseringer.FirstOrDefault(x => x.kunde.Personnummer.Equals(pnummer));
 
                 //Sjekk om det eksisterer
                 if (Auth == null)

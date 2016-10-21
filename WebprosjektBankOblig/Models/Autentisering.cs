@@ -17,6 +17,6 @@ namespace WebprosjektBankOblig.Models
         public int engangsIterasjon { get; set; }
 
         [Required]
-        public virtual Kunde Kunde { get; set; }
+        public virtual Kunde kunde { get; set; }
     }
 }
