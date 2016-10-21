@@ -36,18 +36,26 @@ namespace WebprosjektBankOblig.Models
         public DbSet<Kunde> Kunder { get; set; }
         public DbSet<Autentisering> Autentiseringer { get; set; }
         public DbSet<Poststed> Poststeder { get; set; }
+        public DbSet<Konto> Kontoer { get; set; }
+        public DbSet<Betaling> Betalinger { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Kunde>().HasKey(p => p.Id);
             modelBuilder.Entity<Autentisering>().HasKey(p => p.Id);
             modelBuilder.Entity<Poststed>().HasKey(p => p.Id);
+            modelBuilder.Entity<Konto>().HasKey(p => p.Id);
+            modelBuilder.Entity<Betaling>().HasKey(p => p.Id);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<Kunde>()
                         .HasOptional(s => s.Autentisering) 
-                        .WithRequired(ad => ad.Kunde); 
+                        .WithRequired(ad => ad.Kunde);
+
+            modelBuilder.Entity<Konto>()
+                .HasOptional(s => s.Betaling)
+                .WithRequired(ad => ad.Konto);
 
         }
     }

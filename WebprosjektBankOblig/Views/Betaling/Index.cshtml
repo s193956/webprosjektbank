@@ -1,0 +1,73 @@
+﻿@model IEnumerable<WebprosjektBankOblig.Models.Betaling>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.konto.kontonr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.transaksjonsnr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.frakonto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tilkono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.beløp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.melding)
+            </th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <thead>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.konto.kontonr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.transaksjonsnr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.frakonto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tilkono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dato)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.beløp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.melding)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        </thead>
+    }
+
+</table>

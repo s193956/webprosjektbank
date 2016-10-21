@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - WPB</title>
     <link rel="shortcut icon" href="~/Content/logo.ico" type="image/x-icon" />
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
@@ -36,13 +37,16 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    @if (Session["LoggetBrukerID"] != null)
+                    @if (Session["loggedInn"] != null)
                     {
                         <li class="active navcss">
                             <a href="@Url.Action("Index","Konto")" class="navcss">Konto Oversikt</a>
                         </li>
                         <li class="active">
                             <a href="@Url.Action("Registrer","Betaling")" class="navcss">Registrer Betaling<br></a>
+                        </li>
+                        <li class="active">
+                            <a href="@Url.Action("OmOss","Logginn")" class="navcss">Logg Ut<br></a>
                         </li>
                     }
                     else

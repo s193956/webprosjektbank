@@ -164,8 +164,3 @@ a:hover {
   font-weight: 300;
   line-height: 1.4;
 }
-.form-group {
-    position: relative;
-    text-align: center;
-    display: inline-block;
-}
