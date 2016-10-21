@@ -15,8 +15,7 @@ namespace WebprosjektBankOblig.Models
         public byte[] PassordSalt { get; set; }
         public byte[] engangsSeed { get; set; }
         public int engangsIterasjon { get; set; }
-
-        [Required]
-        public virtual Kunde kunde { get; set; }
+        
+        public virtual Kunde Kunde { get; set; }
     }
 }

@@ -15,10 +15,8 @@ namespace WebprosjektBankOblig.Models
         public string Navn { get; set; }
         public string Adresse { get; set; }
         public string Tlf { get; set; }
-        
-        public int Postnummer { get; set; }
 
         public virtual Poststeder Poststed { get; set; }
-        public virtual Autentisering auth { get; set; }
+        public virtual Autentisering Autentisering { get; set; }
     }
 }

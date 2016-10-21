@@ -37,8 +37,17 @@ namespace WebprosjektBankOblig.Controllers
                 Postnummer = 1337,
                 Poststed = "Sandvika"
             };
+            
+            var salt = generateSalt(384);
 
-            // Ensure there is a user in the database
+            var nyAutentisering = new Autentisering
+            {
+                PassordSalt = salt,
+                PassordHash = Hash("123", salt),
+                engangsSeed = generateSeed(384),
+                engangsIterasjon = 1000000
+            };
+            
             var nyKunde = new Kunde
             {
                 Personnummer = "12345678912",
@@ -47,27 +56,15 @@ namespace WebprosjektBankOblig.Controllers
                 Tlf = "87654321",
                 Poststed = nyPoststed
             };
-            
-            var salt = generateSalt(384);
 
-            var nyAuth = new Autentisering
-            {
-                PassordSalt = salt,
-                PassordHash = Hash("123", salt),
-                engangsSeed = generateSeed(384),
-                engangsIterasjon = 1000000,
-                kunde = nyKunde
-            };
-
-            nyKunde.auth = nyAuth;
+            nyAutentisering.Kunde = nyKunde;
+            nyKunde.Autentisering = nyAutentisering;
 
             var db = new DBContext();
             
             db.Poststed.Add(nyPoststed);
-            db.SaveChanges();
             db.Kunder.Add(nyKunde);
-            db.SaveChanges();
-            //db.Autentiseringer.Add(nyAuth);
+            db.Autentiseringer.Add(nyAutentisering);
             db.SaveChanges();
             
             return View();
@@ -98,7 +95,7 @@ namespace WebprosjektBankOblig.Controllers
 
             long temp = BitConverter.ToInt64(hash, 0);
 
-            return (int)(temp % 1000000);
+            return (int)(Math.Abs(temp % 1000000));
         }
 
         private byte[] Hash(string password, byte[] salt)
@@ -140,7 +137,7 @@ namespace WebprosjektBankOblig.Controllers
 
             if (kunde)
             {
-                Session["personnummer"] = personnummer;
+                Session["Personnummer"] = personnummer;
             }
 
             bool success = kunde;
@@ -152,14 +149,14 @@ namespace WebprosjektBankOblig.Controllers
         {
             var success = false;
 
-            var pnummer = Session["personnummer"];
+            var pnummer = Session["Personnummer"];
 
             if (pnummer != null)
             {
                 using (var db = new DBContext())
                 {
                     //Finn KundeAutentisering knyttet til kunden
-                    var Autentisering = (from a in db.Autentiseringer where a.kunde.Personnummer.Equals((string)pnummer) select a).Single();
+                    var Autentisering = (from a in db.Autentiseringer where a.Kunde.Personnummer.Equals((string)pnummer) select a).First();
 
                     //Lag en liste some kan holde 'NUM__PAST_ITERATIONS_TO_REMEMBER' av de foregående iterasjonene, 
                     //for å sjekke om kunden har generert flere passord en den har brukt hos banken
@@ -200,15 +197,13 @@ namespace WebprosjektBankOblig.Controllers
 
                             db.SaveChanges();
 
-                            Session["OTP"] = true;
+                            Session["engangs"] = true;
 
                             success = true;
                         }
                     }
-                    success = false;
                 }
             }
-
             return Json(success, JsonRequestBehavior.AllowGet);
         }
 
@@ -217,17 +212,21 @@ namespace WebprosjektBankOblig.Controllers
         {
             var success = false;
 
-            bool hasOTP = (bool)Session["OTP"];
-            string pnummer = (string)Session["personnummer"];
+            bool hasOTP = (bool)Session["engangs"];
+            string pnummer = (string)Session["Personnummer"];
 
             if (hasOTP)
             {
                 var db = new DBContext();
-                success = db.Autentiseringer.Any(x => x.kunde.Personnummer.Equals(pnummer) && x.PassordHash.Equals(Hash(passord, x.PassordSalt)));
 
-                if (success)
+                var Autentisering = db.Autentiseringer.FirstOrDefault(x => x.Kunde.Personnummer.Equals(pnummer));
+
+                var inputHash = Hash(passord, Autentisering.PassordSalt);
+
+                if (Autentisering.PassordHash.SequenceEqual(inputHash))
                 {
                     Session["loggedInn"] = true;
+                    success = true;
                 }
             }
 
@@ -239,11 +238,8 @@ namespace WebprosjektBankOblig.Controllers
         {
             using (var db = new DBContext())
             {
-               
-                var pnummerIfraAut = (from d in db.Autentiseringer select d.kunde.Personnummer).ToArray();
-
                 //Finn BankIDBrikke knyttet til kunden
-                var Auth = db.Autentiseringer.FirstOrDefault(x => x.kunde.Personnummer.Equals(pnummer));
+                var Auth = db.Autentiseringer.FirstOrDefault(x => x.Kunde.Personnummer.Equals(pnummer));
 
                 //Sjekk om det eksisterer
                 if (Auth == null)
@@ -263,7 +259,29 @@ namespace WebprosjektBankOblig.Controllers
 
                 //Lagre endringer
                 Auth.engangsIterasjon = Auth.engangsIterasjon - 1;
-                db.SaveChanges();
+                
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    Exception raise = dbEx;
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string message = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            // raise a new exception nesting
+                            // the current instance as InnerException
+                            raise = new InvalidOperationException(message, raise);
+                        }
+                    }
+                    throw raise;
+                }
 
                 return Json(convertToHumanreadable(hash), JsonRequestBehavior.AllowGet);
             }

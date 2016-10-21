@@ -36,6 +36,11 @@ namespace WebprosjektBankOblig.Models
             modelBuilder.Entity<Poststeder>().HasKey(p => p.Id);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<Kunde>()
+                        .HasOptional(s => s.Autentisering) 
+                        .WithRequired(ad => ad.Kunde); 
+
         }
     }
 }
