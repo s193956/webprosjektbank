@@ -12,13 +12,13 @@ namespace WebprosjektBankOblig.Controllers
     public class LoggInnController : Controller
     {
 
-        // GET: LoggInn
+        private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
+
         public ActionResult Index()
         {
             return View();
         }
 
-        //Returnerer bare view for nå
         public ActionResult BliKunde()
         {
             return View();
@@ -29,7 +29,11 @@ namespace WebprosjektBankOblig.Controllers
             return View();
         }
 
-        // GET: LoggInn
+        public ActionResult EtterLogginn()
+        {
+            return View();
+        }
+
         public ActionResult Logginn()
         {
             var nyPoststed = new Poststeder
@@ -78,14 +82,11 @@ namespace WebprosjektBankOblig.Controllers
 
             byte[] returnValue = new byte[bytes];
 
-            Random random = new Random();
-
-            random.NextBytes(returnValue);
+            rngCsp.GetBytes(returnValue);
 
             return returnValue;
         }
 
-        //Utestet, vet ikke hvordan den faktisk ser ut
         public static int convertToHumanreadable(byte[] hash)
         {
             // If the system architecture is little-endian (that is, little end first),
@@ -98,7 +99,7 @@ namespace WebprosjektBankOblig.Controllers
             return (int)(Math.Abs(temp % 1000000));
         }
 
-        private byte[] Hash(string password, byte[] salt)
+        private static byte[] Hash(string password, byte[] salt)
         {
             byte[] bytes = new byte[password.Length * sizeof(char)];
             System.Buffer.BlockCopy(password.ToCharArray(), 0, bytes, 0, bytes.Length);
@@ -107,7 +108,7 @@ namespace WebprosjektBankOblig.Controllers
             return alg.ComputeHash(Combine(bytes, salt));
         }
 
-        public static byte[] Combine(byte[] first, byte[] second)
+        private static byte[] Combine(byte[] first, byte[] second)
         {
             byte[] ret = new byte[first.Length + second.Length];
             Buffer.BlockCopy(first, 0, ret, 0, first.Length);
@@ -115,15 +116,13 @@ namespace WebprosjektBankOblig.Controllers
             return ret;
         }
 
-        private byte[] generateSalt(int bits)
+        private static byte[] generateSalt(int bits)
         {
             int bytes = bits / 8;
 
             byte[] returnValue = new byte[bytes];
 
-            Random random = new Random();
-
-            random.NextBytes(returnValue);
+            rngCsp.GetBytes(returnValue);
 
             return returnValue;
         }
@@ -226,6 +225,7 @@ namespace WebprosjektBankOblig.Controllers
                 if (Autentisering.PassordHash.SequenceEqual(inputHash))
                 {
                     Session["loggedInn"] = true;
+                    Session["Loggetfullenavn"] = Autentisering.Kunde.Navn;
                     success = true;
                 }
             }

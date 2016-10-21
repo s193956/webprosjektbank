@@ -9,8 +9,17 @@ namespace WebprosjektBankOblig.Models
     {
         public override void InitializeDatabase(DBContext context)
         {
-            context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction
+            try
+            {
+                context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction
                 , string.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", context.Database.Connection.Database));
+
+            }
+            catch
+            {
+                
+            }
+
 
             base.InitializeDatabase(context);
         }
@@ -21,8 +30,8 @@ namespace WebprosjektBankOblig.Models
         public DBContext()
             : base("name=DBContext")
         {
-            Database.SetInitializer<DBContext>(new CustomInitializer<DBContext>());
             Database.CreateIfNotExists();
+            Database.SetInitializer<DBContext>(new CustomInitializer<DBContext>());
         }
 
         public DbSet<Kunde> Kunder { get; set; }
