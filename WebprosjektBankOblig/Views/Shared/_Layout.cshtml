@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WPB</title>
+    <link rel="shortcut icon" href="~/Content/logo.ico" type="image/x-icon" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <!--Disse er for validering-->
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <!--CDN for lock iconet vi har brukt-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
+          rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand"><br></a>
+                <a href="@Url.Action("Index")" rel="home" class="navbar-left">
+                    <img style="max-width:110px; margin-top: -2px;" src="~/Content/imageedit_1_8477741602.png" class="img-circle"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["LoggetBrukerID"] != null)
+                    {
+                        <li class="active navcss">
+                            <a href="@Url.Action("Index","Konto")" class="navcss">Konto Oversikt</a>
+                        </li>
+                        <li class="active">
+                            <a href="@Url.Action("Registrer","Betaling")" class="navcss">Registrer Betaling<br></a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="active navcss">
+                            <a href="@Url.Action("BliKunde","LoggInn")" class="navcss">Bli Kunde</a>
+                        </li>
+                        <li class="active">
+                            <a href="@Url.Action("OmOss","Logginn")" class="navcss">Om Oss<br></a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+
+    <!--Ingen av disse linkene fungerer selvfølgelig-->
+    <footer class="section section-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="footer text-left">Snarveier</p>
+                    <ol class="list-unstyled">
+                        <li>
+                            <a href="" class="linker">Logg Inn</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Bli Kunde</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Lånekalkulator</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Aktuelt</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Offisielle kanaler</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Sikkerhet og personvern</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Priser</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                    </ol>
+                    <p class="text-left"></p>
+                </div>
+                <div class="col-sm-6">
+                    <p class="footer text-left">Kontakt</p>
+                    <ol class="list-unstyled">
+                        <li>
+                            <a href="" class="linker">Hjelp</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Kontakt oss</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Sperre kort</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Klage</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">Ledige stillinger</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                        <li>
+                            <a href="" class="linker">For media</a>
+                            <i class="fa fa-angle-right fa-fw fa-lg"></i>
+                        </li>
+                    </ol>
+                    <p class="text-left"></p>
+                </div>
+                <div class="col-sm-6 col-md-12">
+                    <p class="footer lead text-center">
+                        <br>Følg oss
+                    </p>
+                    <div class="row">
+                        <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
+                            <a href="#"><i class="fa fa-3x fa-fw fa-instagram aria-hidden="true" text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 hidden-xs text-center">
+                            <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse mediaikoner"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse mediaikoner"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse mediaikoner"></i></a>
+                            <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse mediaikoner"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <ol class="list-inline text-left" style="text-decoration: underline;"><a href="" class="linker">Bruk av cookies</a> | <a href="" class="linker">Peronvern og samtykke</a> | <a href="" class="linker">Brukervilkår</a></ol>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-center">&copy; @DateTime.Now.Year - Wasserman & El Morabeti</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

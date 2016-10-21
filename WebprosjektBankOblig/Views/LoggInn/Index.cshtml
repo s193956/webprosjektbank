@@ -1,0 +1,129 @@
+﻿@model IEnumerable<WebProsjektBank.Models.LoggInn>
+
+@{
+    ViewBag.Title = "Index side";
+}
+<!--
+<h2>Denne tar kunden videre til påloggingsside, må designes</h2>
+
+<p>
+    @Html.ActionLink("Logg inn", "Logginn")
+</p>
+    -->
+
+
+<div class="section" style="width: 100%; height: 100%;">
+    <div class="background-image" alt="Bakgrunnsbilde"style="background-image : url('../../Content/e-commerce-security-fotolia.jpg')"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="padding-top:10%;">
+                <h1 id="#rectangle" style="text-align:center;color: black; background-color: #BCD4E6; border: 2px solid #BCD4E6; border-radius: 5px 5px;">WPB</h1>
+                <p class="farge">Logg inn under med BankID</p>
+                <br>
+                <br>
+                <a href="@Url.Action("LoggInn","Logginn")" class="btn btn-info btn-lg center-block" style="display: table; margin: 0 auto;" ><i class="fa fa-fw fa-lock"></i>Logg Inn</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="carousel-example" data-interval="5000" class="carousel slide"
+     data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="item">
+            <img src="~/Content/5005.jpg" style="height: 550px; width: 100%;">
+            <div class="carousel-caption">
+                <h1>
+                    Lag en konto i dag &nbsp;
+                    <font color="#777777">
+                        <span style="font-size: 23.4px; line-height: 23.4px; color: lightblue;">Alt du trenger er personnummeret ditt</span>
+                    </font>
+                </h1>
+                <p class="lead">
+                    Lag din egen konto hos oss, &nbsp;perfekt for deg som er student, lærling
+                    eller i førstgangstjeneste.
+                </p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/Romania-Start-up-plus-1.jpg" style="height: 550px; width: 100%;">
+            <div class="carousel-caption">
+                <h1>
+                    Sikre fremtiden med personforsikring&nbsp;
+                    <small style="color: lightblue;">
+                        &nbsp;
+                        <br>
+                        <br>Hvordan ser fremtiden ut?
+                    </small>
+                </h1>
+                <p class="lead">
+                    Det er ikke så lett å spå hvordan fremtiden vil se ut. Mye er usikkert.
+                    Noe er heldigvis sikkert: Personforsikring gjør fremtiden mindre usikker,
+                    for deg og dine nærmeste.
+                </p>
+            </div>
+        </div>
+        <div class="item active">
+            <img src="~/Content/credit-card-processing-definitions.jpg" style="height:550px; width: 100%;">
+            <div class="carousel-caption">
+                <h1>
+                    Kredittkort med fordelsprogram&nbsp;
+                    <small style="color: lightblue;">&nbsp;Kredittkort</small>
+                </h1>
+                <class ="lead" contenteditable="true">
+                    Lei bil litt tryggere med kredittkort - Å parkere på gaten kan være rene
+                    risikosporten. Mange som leier bil opplever å få skader de ikke selv er
+                    skyld i.
+                    <br>
+                    <br>Fordeler med våre kort:
+                    <br>
+                    <ul>
+                        <li>
+                            Gratis å anskaffe Du får rabatter når du handler og kan samle bonus i
+                            mange butikker
+                        </li>
+                        <br>
+                        <li>Ingen gebyr på varekjøp Muligheten for kontaktløs betaling</li>
+                        <br>
+                        <li>Trygghet når du handler på nettet</li>
+                        <br>
+                        <li>Trygghet når du er på reise</li>
+                        <br>
+                        <li>Du har reiseforsikring og avbestillingsforsikring inkludert i kortet</li>
+                        <br>
+                        <li>Test vår kredittkortkalkulator</li>
+                    </ul>
+                </class>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/Content/o-CREDIT-CARDS-facebook.jpg" style="height:550px; width: 100%;">
+            <div class="carousel-caption">
+                <h1>
+                    <small>
+                        <font color="#ffffff">
+                            <span style="font-size: 36px; line-height: 39.6px;">Tilpass dine kredittkort&nbsp;</span>
+                        </font>
+                    </small>
+                </h1>
+                <p class="lead">Lag kredittkortet ditt med bilde du ønsker</p>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#carousel-example" data-slide="prev"><i class="icon-prev  fa fa-angle-left"></i></a>
+    <a class="right carousel-control" href="#carousel-example" data-slide="next"><i class="icon-next fa fa-angle-right"></i></a>
+</div>
+<div class="section section-primary">
+    <div class="background-image"></div>
+    <div class="container">
+        <div class="row text-center">
+            <!--API nøkkelen for iframet er laget med vår konto-->
+            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=pilestredet%2035%20oslo&amp;key=AIzaSyAl3Oad4yRVppBF4yC9GBq86wqU8j4W4xk"
+                    allowfullscreen=""></iframe>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
