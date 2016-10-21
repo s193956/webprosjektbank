@@ -9,8 +9,8 @@ namespace WebprosjektBankOblig.Models
     {
         public int Id { get; set; }
         public virtual Kunde Kunde { get; set; }
-        public string PassordHash { get; set; }
-        public string PassordSalt { get; set; }
+        public byte[] PassordHash { get; set; }
+        public byte[] PassordSalt { get; set; }
         public byte[] engangsSeed { get; set; }
         public int engangsIterasjon { get; set; }
     }
