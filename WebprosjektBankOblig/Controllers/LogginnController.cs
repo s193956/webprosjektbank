@@ -34,7 +34,7 @@ namespace WebprosjektBankOblig.Controllers
         {
             var nyPoststed = new Poststeder
             {
-                Postnummer = "1337",
+                Postnummer = 1337,
                 Poststed = "Sandvika"
             };
 

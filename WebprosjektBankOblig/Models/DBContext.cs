@@ -3,14 +3,15 @@ namespace WebprosjektBankOblig.Models
     using System;
     using System.Data.Entity;
     using System.Linq;
+    using System.Data.Entity.ModelConfiguration.Conventions;
 
     public class DBContext : DbContext
     {
         public DBContext()
             : base("name=DBContext")
         {
-            Database.CreateIfNotExists();
             Database.SetInitializer<DBContext>(new DropCreateDatabaseIfModelChanges<DBContext>());
+            Database.CreateIfNotExists();
         }
 
         public DbSet<Kunde> Kunder { get; set; }
@@ -22,12 +23,8 @@ namespace WebprosjektBankOblig.Models
             modelBuilder.Entity<Kunde>().HasKey(p => p.Id);
             modelBuilder.Entity<Autentisering>().HasKey(p => p.Id);
             modelBuilder.Entity<Poststeder>().HasKey(p => p.Id);
+
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
     }
-
-    //public class MyEntity
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }
