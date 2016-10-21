@@ -5,12 +5,23 @@ namespace WebprosjektBankOblig.Models
     using System.Linq;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
+    public class CustomInitializer<T> : DropCreateDatabaseAlways<DBContext>
+    {
+        public override void InitializeDatabase(DBContext context)
+        {
+            context.Database.ExecuteSqlCommand(TransactionalBehavior.DoNotEnsureTransaction
+                , string.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE", context.Database.Connection.Database));
+
+            base.InitializeDatabase(context);
+        }
+    }
+
     public class DBContext : DbContext
     {
         public DBContext()
             : base("name=DBContext")
         {
-            Database.SetInitializer<DBContext>(new DropCreateDatabaseIfModelChanges<DBContext>());
+            Database.SetInitializer<DBContext>(new CustomInitializer<DBContext>());
             Database.CreateIfNotExists();
         }
 

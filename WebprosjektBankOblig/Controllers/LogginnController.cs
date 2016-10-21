@@ -60,9 +60,12 @@ namespace WebprosjektBankOblig.Controllers
 
             var db = new DBContext();
 
-            db.Kunder.Add(nyKunde);
-            db.SaveChanges();
-
+            if(!db.Kunder.Any(x => x.Personnummer.Equals(nyKunde.Personnummer)))
+            {
+                db.Kunder.Add(nyKunde);
+                db.SaveChanges();
+            }
+            
             return View();
         }
 
