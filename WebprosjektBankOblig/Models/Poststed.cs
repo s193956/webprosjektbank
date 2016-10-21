@@ -6,13 +6,14 @@ using System.Web;
 
 namespace WebprosjektBankOblig.Models
 {
-    public class Poststeder
+    public class Poststed
     {
         [Key]
         public int Id { get; set; }
-        public int Postnummer { get; set; }
-        public string Poststed { get; set; }
+        public string Navn { get; set; }
+        public int Nummer { get; set; }
+ 
 
-        public virtual Kunde[] kunder{ get; set; }
+        public virtual Kunde[] Kunder{ get; set; }
     }
 }

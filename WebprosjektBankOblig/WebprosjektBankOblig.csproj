@@ -170,7 +170,7 @@
     <Compile Include="Models\Autentisering.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\Kunde.cs" />
-    <Compile Include="Models\Poststeder.cs" />
+    <Compile Include="Models\Poststed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

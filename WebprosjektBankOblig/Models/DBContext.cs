@@ -19,8 +19,7 @@ namespace WebprosjektBankOblig.Models
             {
                 
             }
-
-
+            
             base.InitializeDatabase(context);
         }
     }
@@ -36,13 +35,13 @@ namespace WebprosjektBankOblig.Models
 
         public DbSet<Kunde> Kunder { get; set; }
         public DbSet<Autentisering> Autentiseringer { get; set; }
-        public DbSet<Poststeder> Poststed { get; set; }
+        public DbSet<Poststed> Poststeder { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Kunde>().HasKey(p => p.Id);
             modelBuilder.Entity<Autentisering>().HasKey(p => p.Id);
-            modelBuilder.Entity<Poststeder>().HasKey(p => p.Id);
+            modelBuilder.Entity<Poststed>().HasKey(p => p.Id);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 

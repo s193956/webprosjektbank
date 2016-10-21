@@ -36,10 +36,10 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Logginn()
         {
-            var nyPoststed = new Poststeder
+            var nyPoststed = new Poststed
             {
-                Postnummer = 1337,
-                Poststed = "Sandvika"
+                Navn = "Sandvika",
+                Nummer = 1337
             };
             
             var salt = generateSalt(384);
@@ -66,7 +66,7 @@ namespace WebprosjektBankOblig.Controllers
 
             var db = new DBContext();
             
-            db.Poststed.Add(nyPoststed);
+            db.Poststeder.Add(nyPoststed);
             db.Kunder.Add(nyKunde);
             db.Autentiseringer.Add(nyAutentisering);
             db.SaveChanges();
