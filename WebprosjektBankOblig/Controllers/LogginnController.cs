@@ -9,8 +9,25 @@ using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.Controllers
 {
-    public class LogginnController : Controller
+    public class LoggInnController : Controller
     {
+
+        // GET: LoggInn
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        //Returnerer bare view for nå
+        public ActionResult BliKunde()
+        {
+            return View();
+        }
+
+        public ActionResult OmOss()
+        {
+            return View();
+        }
 
         // GET: LoggInn
         public ActionResult Logginn()
