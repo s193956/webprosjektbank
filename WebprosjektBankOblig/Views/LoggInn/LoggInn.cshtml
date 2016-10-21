@@ -2,75 +2,75 @@
     ViewBag.Title = "Innlogging";
 }
 <script>
-                    function validatePersonnummer() {
-                        var $personnummer = $("#personnummer").val();
-                        console.log("validate", $personnummer   );
-                        $.getJSON("/LoggInn/Personnummer", { personnummer: $personnummer },
-                            function (data) {
-                                console.log(data);
-                                if (data === true) {
-                                    // Vis engangs view
-                                    console.log("validate", "success");
-                                    $("#personummerView").hide(200);
-                                    $("#engangsView").show(200);
-                                    $("#status").empty();
-                                } else {
-                                    $("#status").empty();
-                                    $("#status").append("<span class=\"alert alert-danger span5\">Feil personnummer</span>");
-                                }
-                            }
-                        );
-                    }
-                    function validateEngangs() {
-                        var $engangspassord = $("#engangspassord").val();
-                        console.log("validate", $engangspassord);
-                        $.getJSON("/LoggInn/Engangs", { engangspassord: $engangspassord },
-                            function (data) {
-                                if (data === true) {
-                                    // Vis passord view
-                                    $("#engangsView").hide(200);
-                                    $("#passordView").show(200);
-                                    $("#status").empty();
-                                } else {
-                                    // Gå tilbake til personummer view
-                                    $("#engangsView").hide(200);
-                                    $("#personummerView").show(200);
-                                    $("#status").empty();
-                                    $("#status").append("<span class=\"alert alert-danger span5\">Feil engangskode, vennligst tast inn personnummer igjen</span>");
-                                }
-                            }
-                        );
-                    }
-                    function validatePassord() {
-                        var $passord = $("#passord").val();
-                        console.log("validate", $passord);
-                        $.getJSON("/LoggInn/Passord", { passord: $passord },
-                            function (data) {
-                                if (data === true) {
-                                    // Redirect til oversikt view
-                                    $("#status").empty();
-                                    console.log("Login success!");
-                                } else {
-                                    $("#status").empty();
-                                    $("#status").append("<span class=\"alert alert-danger span5\">Feil passord, vennligst prøv igjen</span>");
-                                }
-                            }
-                        );
-                    }
+    function validatePersonnummer() {
+        var $personnummer = $("#personnummer").val();
+        console.log("validate", $personnummer   );
+        $.getJSON("/LoggInn/Personnummer", { personnummer: $personnummer },
+            function (data) {
+                console.log(data);
+                if (data === true) {
+                    // Vis engangs view
+                    console.log("validate", "success");
+                    $("#personummerView").hide(200);
+                    $("#engangsView").show(200);
+                    $("#status").empty();
+                } else {
+                    $("#status").empty();
+                    $("#status").append("<span class=\"alert alert-danger span5\">Feil personnummer</span>");
+                }
+            }
+        );
+    }
+    function validateEngangs() {
+        var $engangspassord = $("#engangspassord").val();
+        console.log("validate", $engangspassord);
+        $.getJSON("/LoggInn/Engangs", { engangspassord: $engangspassord },
+            function (data) {
+                if (data === true) {
+                    // Vis passord view
+                    $("#engangsView").hide(200);
+                    $("#passordView").show(200);
+                    $("#status").empty();
+                } else {
+                    // Gå tilbake til personummer view
+                    $("#engangsView").hide(200);
+                    $("#personummerView").show(200);
+                    $("#status").empty();
+                    $("#status").append("<span class=\"alert alert-danger span5\">Feil engangskode, vennligst tast inn personnummer igjen</span>");
+                }
+            }
+        );
+    }
+    function validatePassord() {
+        var $passord = $("#passord").val();
+        console.log("validate", $passord);
+        $.getJSON("/LoggInn/Passord", { passord: $passord },
+            function (data) {
+                if (data === true) {
+                    // Redirect til oversikt view
+                    $("#status").empty();
+                    console.log("Login success!");
+                } else {
+                    $("#status").empty();
+                    $("#status").append("<span class=\"alert alert-danger span5\">Feil passord, vennligst prøv igjen</span>");
+                }
+            }
+        );
+    }
 
-                    function getNewOtp() {
-                        var $pnummer = $("#pnummer").val();
-                        console.log("otp for", $pnummer);
-                        $.getJSON("/LoggInn/getNextOTP", { pnummer: $pnummer },
-                            function (data) {
-                                console.log(data);
-                                if (data) {
-                                    // Redirect til oversikt view
-                                    $("#otp").val(data);
-                                }
-                            }
-                        );
-                    }
+    function getNewOtp() {
+        var $pnummer = $("#pnummer").val();
+        console.log("otp for", $pnummer);
+        $.getJSON("/LoggInn/getNextOTP", { pnummer: $pnummer },
+            function (data) {
+                console.log(data);
+                if (data) {
+                    // Redirect til oversikt view
+                    $("#otp").val(data);
+                }
+            }
+        );
+    }
 </script>
 <div class="container">
     <div class="row">
@@ -78,19 +78,15 @@
             <h2>Vennligst logg inn</h2>
         </div>
     </div>
-</div>
-    <div class="container  text-center">
-        <div class="label form-group  text-center" id="otpView">
-            <label for="pnummer">Personnummer: </label>
-            <input class="form-control" type="number" id="pnummer">
-            <button class="btn btn-default"  onclick="getNewOtp()">Få nytt engangspassord</button>
+    <div class="row">
+        <div class="label col-md-5 col-md-offset-3 form-group form-inline" id="otpView">
+            <input class="form-control" type="number" id="pnummer" placeholder="Personnummer">
+            <button class="btn btn-default" onclick="getNewOtp()">Få nytt engangspassord</button>
             <input type="number" id="otp" class="form-control" readonly>
         </div>
-        <div>
+        <div class="col-md-5 col-md-offset-4 ">
             <div style="height:300px;padding-top:50px;">
-
                 <div id="status" style="height:50px;">
-
                 </div>
                 <div>
                     <div class="form-group form-inline text-center" id="personummerView">
@@ -114,3 +110,4 @@
             </div>
         </div>
     </div>
+</div>

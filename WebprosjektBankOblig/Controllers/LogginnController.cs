@@ -45,7 +45,7 @@ namespace WebprosjektBankOblig.Controllers
                 PassordSalt = salt,
                 PassordHash = Hash("123", salt),
                 engangsSeed = generateSeed(384),
-                engangsIterasjon = 1000000
+                engangsIterasjon = 100000
             };
             
             var nyKunde = new Kunde
