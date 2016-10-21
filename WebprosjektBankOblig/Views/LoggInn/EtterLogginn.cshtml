@@ -1,0 +1,12 @@
+﻿@model WebProsjektBank.Models.Kunder
+
+@{
+    ViewBag.Title = "Velkommen";
+}
+
+<h2>Velkommen</h2>
+
+@if (Session["Loggetfullenavn"] != null)
+{
+    <p>Velkommen @Session["Loggetfullenavn"].ToString()</p>
+}
