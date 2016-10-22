@@ -1,0 +1,87 @@
+﻿@model IEnumerable<TestOppgave.Models.Kunde>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fornavn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Etternavn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postnr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Poststed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefonnr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Epost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Passord)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PassordGjenta)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fornavn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Etternavn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Postnr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Poststed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefonnr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Epost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Passord)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PassordGjenta)
+        </td>
+        <td>
+            @Html.ActionLink("Endre", "Endre", new { id=item.Personnummer }) |
+            @Html.ActionLink("Detaljer", "Detaljer", new { id=item.Personnummer }) |
+            @Html.ActionLink("Slett", "Slett", new { id=item.Personnummer })
+        </td>
+    </tr>
+}
+
+</table>

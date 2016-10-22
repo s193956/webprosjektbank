@@ -40,13 +40,13 @@
                     @if (Session["loggedInn"] != null)
                     {
                         <li class="active navcss">
-                            <a href="@Url.Action("Index","Konto")" class="navcss">Konto Oversikt</a>
+                            <a href="@Url.Action("Index","Betaling")" class="navcss">Konto Oversikt</a>
                         </li>
                         <li class="active">
                             <a href="@Url.Action("Registrer","Betaling")" class="navcss">Registrer Betaling<br></a>
                         </li>
                         <li class="active">
-                            <a href="@Url.Action("OmOss","Logginn")" class="navcss">Logg Ut<br></a>
+                            <a href="@Url.Action("LoggUt","Logginn")" class="navcss">Logg Ut<br></a>
                         </li>
                     }
                     else
@@ -62,6 +62,15 @@
             </div>
         </div>
     </div>
+
+    @if (Session["loggetut"] != null)
+    {
+        //Kunne evt. brukt en Thread 
+        <div class="alert alert-success" role="alert">
+            <strong>Du er nå logget ut!</strong> Ha en fin dag.
+        </div>
+    }
+
     @RenderBody()
 
     <!--Ingen av disse linkene fungerer selvfølgelig-->

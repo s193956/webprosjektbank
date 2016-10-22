@@ -1,0 +1,68 @@
+﻿@model IEnumerable<WebprosjektBankOblig.Models.Betaling>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-center">
+    <h2>Oversikt over betalinger</h2>
+</div>
+
+<div >
+    <a href="@Url.Action("Registrer","Betaling")" class="btn btn-info center-block" style="float: left; display: table; margin: 0 auto;">Ny Betaling</a>
+</div>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.transaksjonsnr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.frakonto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tilkono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dato)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.beløp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.melding)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.transaksjonsnr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.frakonto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tilkono)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dato)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.beløp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.melding)
+        </td>
+        <td>
+            @Html.ActionLink("Endre", "Endre", new { id=item.Id }, new { @class = "btn btn-default" }) |
+            @Html.ActionLink("Oversikt", "Oversikt", new { id=item.Id }, new { @class = "btn btn-success" }) |
+            @Html.ActionLink("Slett", "Slett", new { id=item.Id }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

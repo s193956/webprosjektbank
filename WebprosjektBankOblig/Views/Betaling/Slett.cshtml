@@ -1,0 +1,72 @@
+﻿@model WebprosjektBankOblig.Models.Betaling
+
+@{
+    ViewBag.Title = "Slett";
+}
+
+<h2>Slette betaling</h2>
+
+<h3>Er du sikker på at du vil slette en betaling?</h3>
+<div>
+    <h4>Betaling</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.transaksjonsnr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.transaksjonsnr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.frakonto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.frakonto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tilkono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tilkono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dato)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dato)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.beløp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.beløp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.melding)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.melding)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Tilbake", "Index")
+        </div>
+    }
+</div>

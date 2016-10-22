@@ -6,15 +6,21 @@ using System.Web;
 
 namespace WebprosjektBankOblig.Models
 {
+    //dette er både domenemodell og view
     public class Betaling
     {
         [Key]
         public int Id { get; set; }
+
+        [Display(Name = "Transaksjonsnummer:")]
         public string transaksjonsnr { get; set; }
+
+        [Display(Name = "Fra Konto:")]
         public string frakonto { get; set; }
 
         [Display(Name = "Til Konto:")]
         [Required(ErrorMessage = "Konto må oppgis")]
+        [RegularExpression(@"[0-9]{11}", ErrorMessage = "Kontonr må være 11 siffer")]
         public string tilkono { get; set; }
 
         [Display(Name = "Dato:")]
@@ -25,8 +31,11 @@ namespace WebprosjektBankOblig.Models
         [Display(Name = "Beløp:")]
         [Required(ErrorMessage = "Beløp må oppgis")]
         public string beløp { get; set; }
+
+        [Display(Name = "Melding/ KID:")]
         public string melding { get; set; }
 
         public virtual Konto Konto { get; set; }
+        public virtual ICollection<Kunde> Kunde { get; set; }
     }
 }

@@ -53,9 +53,9 @@ namespace WebprosjektBankOblig.Models
                         .HasOptional(s => s.Autentisering) 
                         .WithRequired(ad => ad.Kunde);
 
-            modelBuilder.Entity<Konto>()
-                .HasOptional(s => s.Betaling)
-                .WithRequired(ad => ad.Konto);
+            /*modelBuilder.Entity<Konto>()
+                .HasOptional(c => c.Betaling)
+                .WithRequired(ap => ap.Konto);*/
 
         }
     }

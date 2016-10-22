@@ -6,6 +6,7 @@ using System.Web;
 
 namespace WebprosjektBankOblig.Models
 {
+    //dette er både view og domenemodell
     public class Konto
     {
         [Key]
@@ -18,6 +19,8 @@ namespace WebprosjektBankOblig.Models
         public string saldo { get; set; }
 
         public string transaksjonsnr { get; set; }
-        public virtual Betaling Betaling { get; set; }
+        public string Personnummer { get; set; }
+        public virtual ICollection<Betaling> Betaling { get; set; }
+        public virtual ICollection<Kunde> Kunde { get; set; }
     }
 }

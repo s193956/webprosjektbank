@@ -34,6 +34,15 @@ namespace WebprosjektBankOblig.Controllers
             return View();
         }
 
+        public ActionResult LoggUt()
+        {
+            //Setter session lik null
+            Session["loggedInn"] = null;
+            Session["loggetUt"] = true;
+            //Redirecter kunden til hovedsiden
+            return RedirectToAction("Index", "LoggInn");
+        }
+
         public ActionResult Logginn()
         {
             var nyPoststed = new Poststed

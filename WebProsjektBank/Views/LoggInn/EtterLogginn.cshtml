@@ -1,0 +1,36 @@
+﻿@model TestOppgave.Models.Kunde
+
+@{
+    ViewBag.Title = "Velkommen";
+}
+
+<h2>Velkommen</h2>
+
+@if (Session["Loggetfullenavn"] != null)
+{
+    <p>Velkommen @Session["Loggetfullenavn"].ToString()</p>
+}
+
+<body>
+    <div class="navbar navbar-inverse ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Logo bilde her", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Produkter", "ListeProdukter", "Produkter", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Logg Ut", "LoggUt")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
