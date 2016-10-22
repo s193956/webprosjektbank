@@ -25,7 +25,7 @@ namespace WebprosjektBankOblig.Controllers
             return View(db.Betalinger.ToList());
         }
 
-        // GET: Betaling/Details/5
+        //Kan sende med null verdi
         public ActionResult Oversikt(int? id)
         {
             if (id == null)
@@ -40,15 +40,10 @@ namespace WebprosjektBankOblig.Controllers
             return View(betaling);
         }
 
-        // GET: Betaling/Create
         public ActionResult Registrer()
         {
             return View();
         }
-
-        // POST: Betaling/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Registrer([Bind(Include = "Id,transaksjonsnr,frakonto,tilkono,dato,beløp,melding")] Betaling betaling)
@@ -63,7 +58,6 @@ namespace WebprosjektBankOblig.Controllers
             return View(betaling);
         }
 
-        // GET: Betaling/Edit/5
         public ActionResult Endre(int? id)
         {
             if (id == null)
@@ -77,10 +71,7 @@ namespace WebprosjektBankOblig.Controllers
             }
             return View(betaling);
         }
-
-        // POST: Betaling/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Endre([Bind(Include = "Id,transaksjonsnr,frakonto,tilkono,dato,beløp,melding")] Betaling betaling)
@@ -94,7 +85,6 @@ namespace WebprosjektBankOblig.Controllers
             return View(betaling);
         }
 
-        // GET: Betaling/Delete/5
         public ActionResult Slett(int? id)
         {
             if (id == null)
@@ -109,7 +99,6 @@ namespace WebprosjektBankOblig.Controllers
             return View(betaling);
         }
 
-        // POST: Betaling/Delete/5
         [HttpPost, ActionName("Slett")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

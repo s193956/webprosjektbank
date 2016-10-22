@@ -12,6 +12,7 @@ namespace WebprosjektBankOblig.Controllers
     public class LoggInnController : Controller
     {
 
+
         private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
 
         public ActionResult Index()

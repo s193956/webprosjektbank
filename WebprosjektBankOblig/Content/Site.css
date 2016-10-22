@@ -20,6 +20,8 @@ textarea {
 .section {
   position: relative;
   padding: 35px 0;
+  width: 100%;
+  height: 100%;
 }
 .section .background-image {
   z-index: 0;
@@ -169,4 +171,12 @@ a:hover {
 }
 a{
     margin: 0 auto;
+}
+
+dt, dl, dd{
+    float:none;
+    text-align: center;
+    position: relative;
+  padding: 5px 0;
+    display: inline-block;
 }

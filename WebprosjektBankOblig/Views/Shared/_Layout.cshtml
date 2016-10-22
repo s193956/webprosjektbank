@@ -19,8 +19,17 @@
     <!--CDN for lock iconet vi har brukt-->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
           rel="stylesheet" type="text/css">
+
+    <!--Gjør det slik at det ikke er mulig å browse tilbake dersom man har logget ut-->
+    <script type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+    </script>
+
 </head>
-<body>
+    <!--Gjør det slik at det ikke er mulig å browse tilbake dersom man har logget ut-->
+<body onload="noBack();"
+          onpageshow="if (event.persisted) noBack();" onunload="">
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
