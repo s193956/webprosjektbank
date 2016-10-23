@@ -19,6 +19,8 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Index()
         {
+            insertTestData();
+            
             return View();
         }
 
@@ -60,10 +62,21 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Logginn()
         {
-
-            insertTestData();
-
             return View();
+        }
+
+        public ActionResult BankIdBrikke(int? id)
+        {
+            if(id != null)
+            {
+                var Kunde = db.Kunder.FirstOrDefault(x => x.Id == id);
+
+                return View(Kunde);
+            }else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
         }
 
         private void insertTestData()

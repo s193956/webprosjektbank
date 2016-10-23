@@ -204,6 +204,7 @@
     <Content Include="Views\Betaling\Endre.cshtml" />
     <Content Include="Views\Betaling\Index.cshtml" />
     <Content Include="Views\Betaling\Utforte.cshtml" />
+    <Content Include="Views\LoggInn\BankIdBrikke.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

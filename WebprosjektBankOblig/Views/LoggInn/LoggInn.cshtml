@@ -58,20 +58,6 @@
             }
         );
     }
-
-    function getNewOtp() {
-        var $pnummer = $("#pnummer").val();
-        console.log("otp for", $pnummer);
-        $.getJSON("/LoggInn/getNextOTP", { pnummer: $pnummer },
-            function (data) {
-                console.log(data);
-                if (data) {
-                    // Redirect til oversikt view
-                    $("#otp").val(data);
-                }
-            }
-        );
-    }
 </script>
 <div class="container">
     <div class="row">
@@ -81,11 +67,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="label col-md-5 col-md-offset-3 form-group form-inline" id="otpView">
-            <input class="form-control" type="number" id="pnummer" placeholder="Personnummer">
-            <button class="btn btn-default" onclick="getNewOtp()">Få nytt engangspassord</button>
-            <input type="number" id="otp" class="form-control" readonly>
-        </div>
         <div class="col-md-5 col-md-offset-4 ">
             <div style="height:300px;padding-top:50px;">
                 <div id="status" style="height:50px;">
