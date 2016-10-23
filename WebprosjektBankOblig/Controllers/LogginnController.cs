@@ -83,6 +83,13 @@ namespace WebprosjektBankOblig.Controllers
         {
             using (var db = new DBContext())
             {
+                var hasData = db.Kunder.Any();
+
+                if (hasData)
+                {
+                    return;
+                }
+
                 var nyPoststed = new Poststed
                 {
                     Navn = "Sandvika",
