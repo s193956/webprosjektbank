@@ -1,7 +1,7 @@
-Oppgaven er lastet opp på DOTNET Serveren til s198748.
+Oppgaven er lastet opp på DOTNET Serveren til s198748 og s193956.
 Vi har laget en flott dokumentasjon som inneholder viktig og nødvendig info, vennligst les før oppgaven kjøres:
 
-
+https://docs.google.com/document/d/1oygnwxb0nlRMgC3GC2HIQDjhTMr4P-eYZCuIPq2AMNI/edit
 
 Viktig;
 Ved innlogging tast inn fødselsnummeret først, 12345678912, deretter trykker man på få ny engangskode.
