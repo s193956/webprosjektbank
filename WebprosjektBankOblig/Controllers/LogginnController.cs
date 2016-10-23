@@ -343,6 +343,7 @@ namespace WebprosjektBankOblig.Controllers
                 {
                     Session["loggedInn"] = true;
                     Session["Loggetfullenavn"] = Autentisering.Kunde.Navn;
+                    Session["loggetUt"] = null;
                     success = true;
                 }
             }

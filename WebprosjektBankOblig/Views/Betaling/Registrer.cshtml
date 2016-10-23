@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Legg inn betaling";
+
+    var kontolist = ViewData["Kontoer"] as List<WebprosjektBankOblig.Models.Konto>;
+
+    var selectList = new SelectList((from d in kontolist select new { Id = d.kontonr, Name = d.kontotype}).ToList(), "Id", "Name");
+
 }
 
 <div class="container">
@@ -21,7 +26,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.frakonto, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.frakonto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.frakonto, selectList, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.frakonto, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -65,10 +70,6 @@
             </div>
         </div>
     }
-
-    <div>
-        @Html.ActionLink("Tilbake", "Index")
-    </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
