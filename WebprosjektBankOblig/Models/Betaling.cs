@@ -12,16 +12,12 @@ namespace WebprosjektBankOblig.Models
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "Transaksjonsnummer:")]
-        public string transaksjonsnr { get; set; }
-
         [Display(Name = "Fra Konto:")]
         public string frakonto { get; set; }
 
         [Display(Name = "Til Konto:")]
         [Required(ErrorMessage = "Konto må oppgis")]
-        [RegularExpression(@"[0-9]{11}", ErrorMessage = "Kontonr må være 11 siffer")]
-        public string tilkono { get; set; }
+        public string tilkonto { get; set; }
 
         [Display(Name = "Dato:")]
         [Required(ErrorMessage = "Dato for transaksjon må oppgis")]
@@ -35,7 +31,8 @@ namespace WebprosjektBankOblig.Models
         [Display(Name = "Melding/ KID:")]
         public string melding { get; set; }
 
+        public bool utført { get; set; }
+
         public virtual Konto Konto { get; set; }
-        public virtual ICollection<Kunde> Kunde { get; set; }
     }
 }

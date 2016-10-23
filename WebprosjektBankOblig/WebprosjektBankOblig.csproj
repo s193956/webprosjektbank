@@ -203,6 +203,7 @@
     <Content Include="Views\Betaling\Oversikt.cshtml" />
     <Content Include="Views\Betaling\Endre.cshtml" />
     <Content Include="Views\Betaling\Index.cshtml" />
+    <Content Include="Views\Betaling\Utforte.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

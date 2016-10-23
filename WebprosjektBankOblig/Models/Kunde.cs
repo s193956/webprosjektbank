@@ -18,8 +18,6 @@ namespace WebprosjektBankOblig.Models
 
         public virtual Poststed Poststed { get; set; }
         public virtual Autentisering Autentisering { get; set; }
-
-        public virtual ICollection<Konto> Konto { get; set; }
-        public virtual ICollection<Betaling> Betaling { get; set; }
+        public virtual ICollection<Konto> Kontoer { get; set; }
     }
 }

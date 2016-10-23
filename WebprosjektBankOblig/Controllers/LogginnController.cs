@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
@@ -12,6 +13,7 @@ namespace WebprosjektBankOblig.Controllers
     public class LoggInnController : Controller
     {
 
+        private DBContext db = new DBContext();
 
         private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
 
@@ -32,13 +34,25 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult EtterLogginn()
         {
-            return View();
+            var personnummer = (string) Session["Personnummer"];
+
+            if (personnummer != null)
+            {
+                var kontoer = db.Kontoer.Where(x => x.Kunde.Personnummer.Equals(personnummer));
+
+                return View(kontoer.ToList());
+            }else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         public ActionResult LoggUt()
         {
             //Setter session lik null
             Session["loggedInn"] = null;
+            Session["Personnummer"] = null;
+            Session["engangs"] = null;
             Session["loggetUt"] = true;
             //Redirecter kunden til hovedsiden
             return RedirectToAction("Index", "LoggInn");
@@ -46,42 +60,115 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Logginn()
         {
-            var nyPoststed = new Poststed
-            {
-                Navn = "Sandvika",
-                Nummer = 1337
-            };
-            
-            var salt = generateSalt(384);
 
-            var nyAutentisering = new Autentisering
-            {
-                PassordSalt = salt,
-                PassordHash = Hash("123", salt),
-                engangsSeed = generateSeed(384),
-                engangsIterasjon = 100000
-            };
-            
-            var nyKunde = new Kunde
-            {
-                Personnummer = "12345678912",
-                Navn = "Frank Frankenstein",
-                Adresse = "Osloveien 2",
-                Tlf = "87654321",
-                Poststed = nyPoststed
-            };
+            insertTestData();
 
-            nyAutentisering.Kunde = nyKunde;
-            nyKunde.Autentisering = nyAutentisering;
-
-            var db = new DBContext();
-            
-            db.Poststeder.Add(nyPoststed);
-            db.Kunder.Add(nyKunde);
-            db.Autentiseringer.Add(nyAutentisering);
-            db.SaveChanges();
-            
             return View();
+        }
+
+        private void insertTestData()
+        {
+            using (var db = new DBContext())
+            {
+                var nyPoststed = new Poststed
+                {
+                    Navn = "Sandvika",
+                    Nummer = 1337
+                };
+
+                var salt = generateSalt(384);
+
+                var nyAutentisering = new Autentisering
+                {
+                    PassordSalt = salt,
+                    PassordHash = Hash("123", salt),
+                    engangsSeed = generateSeed(384),
+                    engangsIterasjon = 100000
+                };
+
+                var nyKunde = new Kunde
+                {
+                    Personnummer = "12345678912",
+                    Navn = "Frank Frankenstein",
+                    Adresse = "Osloveien 2",
+                    Tlf = "87654321",
+                    Poststed = nyPoststed
+                };
+
+                nyAutentisering.Kunde = nyKunde;
+                nyKunde.Autentisering = nyAutentisering;
+                db.Poststeder.Add(nyPoststed);
+                db.Kunder.Add(nyKunde);
+                db.Autentiseringer.Add(nyAutentisering);
+
+                Konto nyKonto1 = new Konto
+                {
+                    kontotype = "Brukskonto",
+                    kontonr = "4325.54.45342",
+                    saldo = "32048,54",
+                    Kunde = nyKunde
+                };
+
+                Konto nyKonto2 = new Konto
+                {
+                    kontotype = "Sparekonto",
+                    kontonr = "4325.54.45237",
+                    saldo = "490394,98",
+                    Kunde = nyKunde
+                };
+
+                Konto nyKonto3 = new Konto
+                {
+                    kontotype = "Aksjekonto",
+                    kontonr = "4325.54.45543",
+                    saldo = "4,05",
+                    Kunde = nyKunde
+                };
+
+                db.Kontoer.Add(nyKonto1);
+                db.Kontoer.Add(nyKonto2);
+                db.Kontoer.Add(nyKonto3);
+
+                Random r = new Random();
+
+                for (int i = 0;i< 213; i++)
+                {
+                    Konto konto = null;
+
+                    switch (i % 3)
+                    {
+                        case 0:
+                            konto = nyKonto1;
+                            break;
+                        case 1: konto = nyKonto2;
+                            break;
+                        case 2: konto = nyKonto3;
+                            break;
+                    }
+
+                    if (konto == null)
+                        throw new Exception("wtf");
+
+                    DateTime start = new DateTime(2013, 1, 1);
+                    int days = (DateTime.Today - start).Days;
+                    var dato = start.AddDays(r.Next(days));
+
+                    Betaling nyBetaling = new Betaling
+                    {
+                        frakonto = konto.kontonr,
+                        tilkonto = r.Next(1429, 9894).ToString() + "." + r.Next(12, 98).ToString() + "." + r.Next(31928, 98596).ToString(),
+                        dato = dato.ToString(),
+                        beløp = r.Next(39, 94578).ToString(),
+                        melding = "",
+                        utført = true,
+                        Konto = konto
+                    };
+                    db.Betalinger.Add(nyBetaling);
+                }
+
+                db.SaveChanges();
+
+            }
         }
 
         private static readonly int NUM__PAST_ITERATIONS_TO_REMEMBER = 200;
@@ -269,7 +356,7 @@ namespace WebprosjektBankOblig.Controllers
 
                 //Lagre endringer
                 Auth.engangsIterasjon = Auth.engangsIterasjon - 1;
-                
+
 
                 try
                 {

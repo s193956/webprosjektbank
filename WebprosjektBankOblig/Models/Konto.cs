@@ -12,15 +12,17 @@ namespace WebprosjektBankOblig.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name = "Kontotype:")]
+        public string kontotype { get; set; }
+
         [Display(Name = "Kontonummer:")]
         public string kontonr { get; set; }
 
         [Display(Name = "Disponibelt beløp:")]
         public string saldo { get; set; }
 
-        public string transaksjonsnr { get; set; }
-        public string Personnummer { get; set; }
-        public virtual ICollection<Betaling> Betaling { get; set; }
-        public virtual ICollection<Kunde> Kunde { get; set; }
+        public virtual Kunde Kunde { get; set; }
+        public virtual ICollection<Betaling> Betalinger { get; set; }
+        
     }
 }

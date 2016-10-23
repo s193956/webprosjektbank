@@ -14,7 +14,41 @@ namespace WebprosjektBankOblig.Controllers
     {
         private DBContext db = new DBContext();
 
-        public ActionResult Index()
+        public ActionResult Index(int? id)
+        {
+            //Dersom kunden skriver /Betaling/en eller annen action så vil han/hun
+            //bli returnert til hovedsiden hvis de ikke er pålogget
+            if (Session["loggedInn"] == null)
+            {
+                return RedirectToAction("Index", "LoggInn");
+            }
+
+            var personnummer = (string)Session["Personnummer"];
+
+            if (id != null)
+            {
+                var betalinger = from b in db.Betalinger
+                                 where b.Konto.Kunde.Personnummer.Equals(personnummer) &&
+                                 b.Konto.Id == (int)id &&
+                                 !b.utført
+                                 orderby b.dato
+                                 select b;
+
+                return View(betalinger.ToList());
+            }
+            else
+            {
+                var betalinger = from b in db.Betalinger
+                                 where b.Konto.Kunde.Personnummer.Equals(personnummer) &&
+                                 !b.utført
+                                 orderby b.dato
+                                 select b;
+
+                return View(betalinger.ToList());
+            }
+        }
+
+        public ActionResult Utforte(int? id)
         {
             //Dersom kunden skriver /Betaling/en eller annen action så vil han/hun
             //bli returnert til hovedsiden hvis de ikke er pålogget
@@ -22,7 +56,30 @@ namespace WebprosjektBankOblig.Controllers
             {
                 return RedirectToAction("Index","LoggInn");
             }
-            return View(db.Betalinger.ToList());
+
+            var personnummer = (string) Session["Personnummer"];
+
+            if (id != null)
+            {
+                var betalinger = from b in db.Betalinger
+                                 where b.Konto.Kunde.Personnummer.Equals(personnummer) &&
+                                 b.Konto.Id == (int)id &&
+                                 b.utført
+                                 orderby b.dato
+                                 select b;
+
+                return View(betalinger.ToList());
+            }
+            else
+            {
+                var betalinger = from b in db.Betalinger
+                                  where b.Konto.Kunde.Personnummer.Equals(personnummer) &&
+                                  b.utført
+                                  orderby b.dato
+                                  select b;
+
+                return View(betalinger.ToList());
+            }
         }
 
         //Kan sende med null verdi
@@ -40,13 +97,21 @@ namespace WebprosjektBankOblig.Controllers
             return View(betaling);
         }
 
-        public ActionResult Registrer()
+        public ActionResult Registrer(int? id)
         {
+            var personnummer = (string)Session["Personnummer"];
+
+            var kontoer = db.Kontoer.Where(x => x.Kunde.Personnummer.Equals(personnummer)).ToList();
+
+            ViewData.Add("Kontoer", kontoer);
+            ViewData.Add("SelectedKonto", id);
+
             return View();
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registrer([Bind(Include = "Id,transaksjonsnr,frakonto,tilkono,dato,beløp,melding")] Betaling betaling)
+        public ActionResult Registrer([Bind(Include = "Id,frakonto,tilkono,dato,beløp,melding")] Betaling betaling)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +139,7 @@ namespace WebprosjektBankOblig.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Endre([Bind(Include = "Id,transaksjonsnr,frakonto,tilkono,dato,beløp,melding")] Betaling betaling)
+        public ActionResult Endre([Bind(Include = "Id,frakonto,tilkono,dato,beløp,melding")] Betaling betaling)
         {
             if (ModelState.IsValid)
             {

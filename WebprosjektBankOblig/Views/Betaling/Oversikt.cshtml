@@ -3,65 +3,61 @@
 @{
     ViewBag.Title = "Oversikt";
 }
+<div class="container">
 
-<h2 class="text-center">Oversikt</h2>
+    <h2 class="text-center">Oversikt</h2>
 
 
-<div class="form-horizontal">
-    <h4>Betaling</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.transaksjonsnr)
-        </dt>
+    <div class="form-horizontal">
+        <h4>Betaling</h4>
+        <hr />
+        <dl class="dl-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.transaksjonsnr)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.frakonto)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.frakonto)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.frakonto)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.frakonto)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.tilkonto)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.tilkono)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.tilkonto)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.tilkono)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.dato)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dato)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.dato)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.dato)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.beløp)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.beløp)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.beløp)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.beløp)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.melding)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.melding)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.melding)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.melding)
-        </dd>
-
-    </dl>
-</div>
+        </dl>
+    </div>
     <p>
         @Html.ActionLink("Endre", "Endre", new { id = Model.Id }, new { @class = "btn btn-default" }) |
         @Html.ActionLink("Tilbake", "Index", new { id = Model.Id }, new { @class = "btn btn-default" })
     </p>
+
+</div>

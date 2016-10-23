@@ -44,7 +44,7 @@ namespace WebprosjektBankOblig.Models
             modelBuilder.Entity<Kunde>().HasKey(p => p.Id);
             modelBuilder.Entity<Autentisering>().HasKey(p => p.Id);
             modelBuilder.Entity<Poststed>().HasKey(p => p.Id);
-            modelBuilder.Entity<Konto>().HasKey(p => p.kontonr);
+            modelBuilder.Entity<Konto>().HasKey(p => p.Id);
             modelBuilder.Entity<Betaling>().HasKey(p => p.Id);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -52,11 +52,6 @@ namespace WebprosjektBankOblig.Models
             modelBuilder.Entity<Kunde>()
                         .HasOptional(s => s.Autentisering) 
                         .WithRequired(ad => ad.Kunde);
-
-            /*modelBuilder.Entity<Konto>()
-                .HasOptional(c => c.Betaling)
-                .WithRequired(ap => ap.Konto);*/
-
         }
     }
 }

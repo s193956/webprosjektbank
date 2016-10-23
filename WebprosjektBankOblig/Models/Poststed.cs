@@ -13,7 +13,6 @@ namespace WebprosjektBankOblig.Models
         public string Navn { get; set; }
         public int Nummer { get; set; }
  
-
-        public virtual Kunde[] Kunder{ get; set; }
+        public virtual ICollection<Kunde> Kunder { get; set; }
     }
 }

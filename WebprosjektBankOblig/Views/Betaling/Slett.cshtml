@@ -4,69 +4,66 @@
     ViewBag.Title = "Slett";
 }
 
-<h2>Slette betaling</h2>
+<div class="container">
 
-<h3>Er du sikker på at du vil slette en betaling?</h3>
-<div>
-    <h4>Betaling</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.transaksjonsnr)
-        </dt>
+    <h2>Slette betaling</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.transaksjonsnr)
-        </dd>
+    <h3>Er du sikker på at du vil slette en betaling?</h3>
+    <div>
+        <h4>Betaling</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.frakonto)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.frakonto)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.frakonto)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.frakonto)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.tilkonto)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.tilkono)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.tilkonto)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.tilkono)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.dato)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dato)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.dato)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.dato)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.beløp)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.beløp)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.beløp)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.beløp)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.melding)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.melding)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.melding)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.melding)
-        </dd>
+        </dl>
 
-    </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Tilbake", "Index")
+            </div>
+        }
+    </div>
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Tilbake", "Index")
-        </div>
-    }
 </div>

@@ -1,10 +1,49 @@
-﻿@{
+﻿@model  IEnumerable<WebprosjektBankOblig.Models.Konto>
+
+@{
     ViewBag.Title = "Velkommen";
 }
 
-<h2>Velkommen</h2>
+<div class="container">
 
-@if (Session["Loggetfullenavn"] != null)
-{
-    <p>Velkommen @Session["Loggetfullenavn"].ToString()</p>
-}
+    <h2>Velkommen</h2>
+
+    @if (Session["Loggetfullenavn"] != null)
+    {
+        <p>Velkommen @Session["Loggetfullenavn"].ToString()</p>
+    }
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.kontonr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.saldo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.kontotype)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.kontonr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.saldo)
+                </td>
+                <td>
+                    @Html.ActionLink("Ny Betaling", "Registrer", "Betaling", new { id = item.Id }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Betalingsoverssikt", "Index", "Betaling", new { id = item.Id }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Utførte betalinger", "Utforte", "Betaling", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
