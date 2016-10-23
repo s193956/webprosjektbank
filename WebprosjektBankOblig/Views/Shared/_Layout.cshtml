@@ -30,6 +30,13 @@
     <!--Gjør det slik at det ikke er mulig å browse tilbake dersom man har logget ut-->
 <body onload="noBack();"
           onpageshow="if (event.persisted) noBack();" onunload="">
+
+@if (Session["loggedInn"] == null)
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Testbruker: </strong> Frank Frankenstein. <strong>Personnummer: </strong> 12345678912 <strong>@Html.ActionLink("BankID Brikke", "BankIdBrikke", new { id = 1 }, new { @class = "btn btn-default", target = "_blank" }) </strong> <strong> Passord:  </strong>  123
+}
+</div>
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
