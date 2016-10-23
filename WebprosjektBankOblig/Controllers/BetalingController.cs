@@ -111,14 +111,24 @@ namespace WebprosjektBankOblig.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Registrer([Bind(Include = "Id,frakonto,tilkono,dato,beløp,melding")] Betaling betaling)
+        public ActionResult Registrer([Bind(Include = "Id,frakonto,tilkonto,dato,beløp,melding")] Betaling betaling)
         {
             if (ModelState.IsValid)
             {
+                var fraKonto = db.Kontoer.FirstOrDefault(x => x.kontonr.Equals(betaling.frakonto));
+
+                betaling.Konto = fraKonto;
+
                 db.Betalinger.Add(betaling);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            var personnummer = (string)Session["Personnummer"];
+
+            var kontoer = db.Kontoer.Where(x => x.Kunde.Personnummer.Equals(personnummer)).ToList();
+
+            ViewData.Add("Kontoer", kontoer);
 
             return View(betaling);
         }
@@ -139,7 +149,7 @@ namespace WebprosjektBankOblig.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Endre([Bind(Include = "Id,frakonto,tilkono,dato,beløp,melding")] Betaling betaling)
+        public ActionResult Endre([Bind(Include = "Id,frakonto,tilkonto,dato,beløp,melding")] Betaling betaling)
         {
             if (ModelState.IsValid)
             {

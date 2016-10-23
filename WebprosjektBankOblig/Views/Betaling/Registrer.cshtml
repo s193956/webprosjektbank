@@ -5,7 +5,7 @@
 
     var kontolist = ViewData["Kontoer"] as List<WebprosjektBankOblig.Models.Konto>;
 
-    var selectList = new SelectList((from d in kontolist select new { Id = d.kontonr, Name = d.kontotype}).ToList(), "Id", "Name");
+        var selectList = new SelectList((from d in kontolist select new { Id = d.kontonr, Name = d.kontotype }).ToList(), "Id", "Name");
 
 }
 
