@@ -1,13 +1,15 @@
-namespace WebprosjektBankOblig.Models
-{
-    using System;
-    using System.Data.Entity;
-    using System.Linq;
-    using System.Data.Entity.ModelConfiguration.Conventions;
+using System;
+using System.Data.Entity;
+using System.Linq;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using WebprosjektBankOblig.Models;
 
-    public class CustomInitializer<T> : DropCreateDatabaseAlways<DBContext>
+namespace WebprosjektBankOblig.DAL
+{
+    
+    public class CustomInitializer<T> : DropCreateDatabaseAlways<BankDbContext>
     {
-        public override void InitializeDatabase(DBContext context)
+        public override void InitializeDatabase(BankDbContext context)
         {
             try
             {
@@ -24,13 +26,13 @@ namespace WebprosjektBankOblig.Models
         }
     }
 
-    public class DBContext : DbContext
+    public class BankDbContext : DbContext
     {
-        public DBContext()
+        public BankDbContext()
             : base("name=DBContext")
         {
             Database.CreateIfNotExists();
-            Database.SetInitializer<DBContext>(new CustomInitializer<DBContext>());
+            Database.SetInitializer<BankDbContext>(new CustomInitializer<BankDbContext>());
         }
 
         public DbSet<Kunde> Kunder { get; set; }

@@ -6,13 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebprosjektBankOblig.DAL;
 using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.Controllers
 {
     public class BetalingController : Controller
     {
-        private DBContext db = new DBContext();
+        private BankDbContext db = new BankDbContext();
 
         public ActionResult Index(int? id)
         {

@@ -172,14 +172,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BLL\AuthBLL.cs" />
     <Compile Include="Controllers\BetalingController.cs" />
     <Compile Include="Controllers\LoggInnController.cs" />
+    <Compile Include="DAL\AuthDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Autentisering.cs" />
     <Compile Include="Models\Betaling.cs" />
-    <Compile Include="Models\DBContext.cs" />
+    <Compile Include="DAL\BankDbContext.cs" />
     <Compile Include="Models\Konto.cs" />
     <Compile Include="Models\Kunde.cs" />
     <Compile Include="Models\Poststed.cs" />
@@ -212,9 +214,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
