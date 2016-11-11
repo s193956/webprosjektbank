@@ -7,26 +7,36 @@ using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.BLL
 {
-    public class BetalingBLL
+    public class BetalingBLL : BLL.IBetalingBLL
     {
 
-        BetalingDAL betDAL = new BetalingDAL();
+        private IBetalingRepository _repository;
+
+        public BetalingBLL()
+        {
+            _repository = new BetalingRepository();
+        }
+
+        public BetalingBLL(IBetalingRepository stub)
+        {
+            _repository = stub;
+        }
 
         public List<Betaling> hentBetalinger(string pn, int? id, bool? utført)
         {
             if (id.HasValue)
             {
-                return betDAL.hentBetalinger(pn, id.Value, utført);
+                return _repository.hentBetalinger(pn, id.Value, utført);
             }
             else
             {
-                return betDAL.hentBetalinger(pn, utført);
+                return _repository.hentBetalinger(pn, utført);
             }
         }
 
         public void registrerBetaling(Betaling betaling)
         {
-            betDAL.lagreBetaling(betaling);
+            _repository.lagreBetaling(betaling);
         }
     
     }

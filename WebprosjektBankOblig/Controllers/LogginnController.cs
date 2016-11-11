@@ -71,7 +71,7 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult BankIdBrikke(int? id)
         {
-            var mDAL = new AuthDAL();
+            var mDAL = new AuthRepository();
 
             if (id.HasValue)
             {

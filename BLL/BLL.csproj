@@ -44,6 +44,9 @@
     <Compile Include="AdminBLL.cs" />
     <Compile Include="AuthBLL.cs" />
     <Compile Include="BetalingBLL.cs" />
+    <Compile Include="IAdminBLL.cs" />
+    <Compile Include="IAuthBLL.cs" />
+    <Compile Include="IBetalingBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -58,7 +58,7 @@ namespace WebprosjektBankOblig.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var mDAL = new BetalingDAL();
+            var mDAL = new BetalingRepository();
 
             var betaling = mDAL.hentBetaling(id.Value);
 
@@ -74,7 +74,7 @@ namespace WebprosjektBankOblig.Controllers
         {
             var personnummer = (string)Session["Personnummer"];
 
-            var mDAL = new KontoDAL();
+            var mDAL = new KontoRepository();
 
             var kontoer = mDAL.hentKontoer(personnummer);
 
@@ -99,7 +99,7 @@ namespace WebprosjektBankOblig.Controllers
 
             var personnummer = (string)Session["Personnummer"];
             
-            var mDAL = new KontoDAL();
+            var mDAL = new KontoRepository();
 
             var kontoer = mDAL.hentKontoer(personnummer);
 
@@ -115,7 +115,7 @@ namespace WebprosjektBankOblig.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var mDAL = new BetalingDAL();
+            var mDAL = new BetalingRepository();
 
             var betaling = mDAL.hentBetaling(id.Value);
             
@@ -133,7 +133,7 @@ namespace WebprosjektBankOblig.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mDAL = new BetalingDAL();
+                var mDAL = new BetalingRepository();
 
                 mDAL.endreBetaling(betaling);
                 
@@ -149,7 +149,7 @@ namespace WebprosjektBankOblig.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var mDAL = new BetalingDAL();
+            var mDAL = new BetalingRepository();
 
             var betaling = mDAL.hentBetaling(id.Value);
             
@@ -164,7 +164,7 @@ namespace WebprosjektBankOblig.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var mDAL = new BetalingDAL();
+            var mDAL = new BetalingRepository();
 
             mDAL.slettBetaling(id);
 

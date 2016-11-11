@@ -6,7 +6,7 @@ using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.DAL
 {
-    public class AdminDAL
+    public class AdminRepository : DAL.IAdminRepository
     {
 
         BankDbContext db = new BankDbContext();

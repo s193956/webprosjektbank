@@ -6,7 +6,7 @@ using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.DAL
 {
-    public class LoggDAL
+    public class LoggRepositoryStub : DAL.ILoggRepository
     {
         BankDbContext db = new BankDbContext();
 
@@ -14,9 +14,9 @@ namespace WebprosjektBankOblig.DAL
         {
             var entry = new LoggEntry
             {
-                bruker = bruker,
-                success = success,
-                beskrivelse = beskrivelse,
+                bruker = "",
+                success = true,
+                beskrivelse = "",
                 affectedId = affectedId
             };
 

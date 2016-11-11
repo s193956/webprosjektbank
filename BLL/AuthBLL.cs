@@ -8,17 +8,27 @@ using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.BLL
 {
-    public class AuthBLL
+    public class AuthBLL : BLL.IAuthBLL
     {
         public static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
 
-        AuthDAL authDAL = new AuthDAL();
+        private IAuthRepository _repository;
+
+        public AuthBLL()
+        {
+            _repository = new AuthRepository();
+        }
+
+        public AuthBLL(IAuthRepository stub)
+        {
+            _repository = stub;
+        }
 
         const int NUM__PAST_ITERATIONS_TO_REMEMBER = 200;
 
         public bool kundeEksisterer(string pn)
         {
-            var kunde = authDAL.hentKunde(pn);
+            var kunde = _repository.hentKunde(pn);
 
             return kunde != null;
         }
@@ -26,7 +36,7 @@ namespace WebprosjektBankOblig.BLL
         public bool validerEngangspassord(string pn, int ep)
         {
             //Finn KundeAutentisering knyttet til kunden
-            var autentisering = authDAL.hentAuth(pn);
+            var autentisering = _repository.hentAuth(pn);
 
             //Lag en liste some kan holde 'NUM__PAST_ITERATIONS_TO_REMEMBER' av de foregående iterasjonene, 
             //for å sjekke om kunden har generert flere passord en den har brukt hos banken
@@ -65,7 +75,7 @@ namespace WebprosjektBankOblig.BLL
                     //Oppdater databasen og returner sant
                     autentisering.engangsIterasjon = validIteration - 1;
 
-                    authDAL.endreAutentisering(autentisering);
+                    _repository.endreAutentisering(autentisering);
 
                     return true;
                 }
@@ -75,7 +85,7 @@ namespace WebprosjektBankOblig.BLL
 
         public bool validerPassord(string pn, string passord)
         {
-            var Autentisering = authDAL.hentAuth(pn);
+            var Autentisering = _repository.hentAuth(pn);
 
             var inputHash = Hash(passord, Autentisering.PassordSalt);
 
@@ -84,7 +94,7 @@ namespace WebprosjektBankOblig.BLL
 
         public string hentKundeNavn(string pn)
         {
-            var kunde = authDAL.hentKunde(pn);
+            var kunde = _repository.hentKunde(pn);
 
             if (kunde != null)
             {
@@ -97,7 +107,7 @@ namespace WebprosjektBankOblig.BLL
         public int hentNesteEngangspassord(string pn)
         {
             //Finn BankIDBrikke knyttet til kunden
-            var auth = authDAL.hentAuth(pn);
+            var auth = _repository.hentAuth(pn);
 
             //Sjekk om det eksisterer
             if (auth == null)
@@ -118,7 +128,7 @@ namespace WebprosjektBankOblig.BLL
             //Lagre endringer
             auth.engangsIterasjon = auth.engangsIterasjon - 1;
 
-            authDAL.endreAutentisering(auth);
+            _repository.endreAutentisering(auth);
 
             return convertToHumanreadable(hash);
         }

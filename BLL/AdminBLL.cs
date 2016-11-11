@@ -7,8 +7,19 @@ using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.BLL
 {
-    public class AdminBLL
+    public class AdminBLL : BLL.IAdminBLL
     {
+        private IAuthRepository _repository;
+
+        public AdminBLL()
+        {
+            _repository = new AuthRepository();
+        }
+
+        public AdminBLL(IAuthRepository stub)
+        {
+            _repository = stub;
+        }
         public AdminBruker lagAdminBruker()
         {
             var salt = AuthBLL.generateSalt(384);
@@ -28,10 +39,8 @@ namespace WebprosjektBankOblig.BLL
         }
 
         public bool validerPassord(string l, string p)
-        {
-            var mDAL = new AuthDAL();
-
-            var admin = mDAL.hentAdmin(l);
+        { 
+            var admin = _repository.hentAdmin(l);
 
             if (admin == null)
                 return false;

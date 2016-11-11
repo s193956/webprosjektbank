@@ -7,7 +7,7 @@ using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.DAL
 { 
-    public class AuthDAL
+    public class AuthRepository : DAL.IAuthRepository
     {
         BankDbContext db = new BankDbContext();
 

@@ -7,43 +7,107 @@ using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.DAL
 {
-    public class BetalingDAL
+    public class BetalingRepositoryStub : DAL.IBetalingRepository
     {
         private BankDbContext db = new BankDbContext();
 
         public List<Betaling> hentBetalinger(string pn, int id, bool? utført)
         {
+            var betListe = new List<Betaling>();
+            var bet = new Betaling()
+            {
+                Id = 1,
+                frakonto = "",
+                tilkonto = "",
+                dato = "",
+                beløp = "",
+                melding = "",
+                utført = true
+
+            };
+            betListe.Add(bet);
+            betListe.Add(bet);
+            betListe.Add(bet);
+
+
+
+            return betListe;
+            /*
             return (from b in db.Betalinger
                     where b.Konto.Kunde.Personnummer == pn &&
                     b.Konto.Id == id &&
                     utført.Value ? b.utført == utført : true
                     orderby b.dato
-                    select b).ToList();
+                    select b).ToList();*/
         }
 
         public List<Betaling> hentBetalinger(string pn, bool? utført)
         {
-            return (from b in db.Betalinger
+            var betListe = new List<Betaling>();
+            var bet = new Betaling()
+            {
+                Id = 1,
+                frakonto = "",
+                tilkonto = "",
+                dato = "",
+                beløp = "",
+                melding = "",
+                utført = true
+
+            };
+            betListe.Add(bet);
+            betListe.Add(bet);
+            betListe.Add(bet);
+
+
+
+            return betListe;
+
+            /*return (from b in db.Betalinger
                     where b.Konto.Kunde.Personnummer == pn &&
                     utført.Value ? b.utført == utført : true
                     orderby b.dato
-                    select b).ToList();
+                    select b).ToList();*/
         }
 
         public List<Betaling> hentBetalinger()
         {
-            return db.Betalinger.ToList();
+            var betListe = new List<Betaling>();
+            var bet = new Betaling()
+            {
+                Id = 1,
+                frakonto = "",
+                tilkonto = "",
+                dato = "",
+                beløp = "",
+                melding = "",
+                utført = true
+
+            };
+            betListe.Add(bet);
+            betListe.Add(bet);
+            betListe.Add(bet);
+
+
+
+            return betListe;
+            //return db.Betalinger.ToList();
         }
 
         public Betaling hentBetaling(int id)
         {
-            return db.Betalinger.Find(id);
+            var bet = new Betaling()
+            {
+                Id = id
+            };
+            return db.Betalinger.Find(bet);
+            //return db.Betalinger.Find(id);
         }
 
         public void lagreBetaling(Betaling betaling)
-        { 
+        {
             db.Betalinger.Add(betaling);
-            
+
             var fraKonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.frakonto);
 
             betaling.Konto = fraKonto;

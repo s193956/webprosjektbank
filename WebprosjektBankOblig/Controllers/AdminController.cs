@@ -22,21 +22,21 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Kunder()
         {
-            var kunder = new AdminDAL().hentAlleKunder();
+            var kunder = new AdminRepository().hentAlleKunder();
 
             return View(kunder);
         }
 
         public ActionResult Kontoer()
         {
-            var kontoer = new KontoDAL().hentKontoer();
+            var kontoer = new KontoRepository().hentKontoer();
 
             return View(kontoer);
         }
 
         public ActionResult Betalinger()
         {
-            var betalinger = new BetalingDAL().hentBetalinger();
+            var betalinger = new BetalingRepository().hentBetalinger();
 
             return View(betalinger);
         }

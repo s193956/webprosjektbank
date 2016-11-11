@@ -49,12 +49,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminDAL.cs" />
-    <Compile Include="AuthDAL.cs" />
+    <Compile Include="AdminRepository.cs" />
+    <Compile Include="AdminRepositoryStub.cs" />
+    <Compile Include="AuthRepository.cs" />
+    <Compile Include="AuthRepositoryStub.cs" />
     <Compile Include="BankDbContext.cs" />
-    <Compile Include="BetalingDAL.cs" />
-    <Compile Include="KontoDAL.cs" />
-    <Compile Include="LoggDAL.cs" />
+    <Compile Include="BetalingRepository.cs" />
+    <Compile Include="BetalingRepositoryStub.cs" />
+    <Compile Include="IAdminRepository.cs" />
+    <Compile Include="IAuthRepository.cs" />
+    <Compile Include="IBetalingRepository.cs" />
+    <Compile Include="IKontoRepository.cs" />
+    <Compile Include="ILoggRepository.cs" />
+    <Compile Include="KontoRepository.cs" />
+    <Compile Include="KontoRepositoryStub.cs" />
+    <Compile Include="LoggRepository.cs" />
+    <Compile Include="LoggRepositoryStub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
