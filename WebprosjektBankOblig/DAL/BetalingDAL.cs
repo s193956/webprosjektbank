@@ -30,6 +30,11 @@ namespace WebprosjektBankOblig.DAL
                     select b).ToList();
         }
 
+        public List<Betaling> hentBetalinger()
+        {
+            return db.Betalinger.ToList();
+        }
+
         public Betaling hentBetaling(int id)
         {
             return db.Betalinger.Find(id);

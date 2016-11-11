@@ -10,25 +10,23 @@ namespace WebprosjektBankOblig.BLL
 {
     public class AuthBLL
     {
-        private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
+        public static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
+
+        AuthDAL authDAL = new AuthDAL();
 
         const int NUM__PAST_ITERATIONS_TO_REMEMBER = 200;
 
         public bool kundeEksisterer(string pn)
         {
-            var mDAL = new AuthDAL();
-
-            var kunde = mDAL.hentKunde(pn);
+            var kunde = authDAL.hentKunde(pn);
 
             return kunde != null;
         }
 
         public bool validerEngangspassord(string pn, int ep)
         {
-            var mDAL = new AuthDAL();
-
             //Finn KundeAutentisering knyttet til kunden
-            var autentisering = mDAL.hentAuth(pn);
+            var autentisering = authDAL.hentAuth(pn);
 
             //Lag en liste some kan holde 'NUM__PAST_ITERATIONS_TO_REMEMBER' av de foregående iterasjonene, 
             //for å sjekke om kunden har generert flere passord en den har brukt hos banken
@@ -67,7 +65,7 @@ namespace WebprosjektBankOblig.BLL
                     //Oppdater databasen og returner sant
                     autentisering.engangsIterasjon = validIteration - 1;
 
-                    mDAL.endreAutentisering(autentisering);
+                    authDAL.endreAutentisering(autentisering);
 
                     return true;
                 }
@@ -77,9 +75,7 @@ namespace WebprosjektBankOblig.BLL
 
         public bool validerPassord(string pn, string passord)
         {
-            var mDAL = new AuthDAL();
-
-            var Autentisering = mDAL.hentAuth(pn);
+            var Autentisering = authDAL.hentAuth(pn);
 
             var inputHash = Hash(passord, Autentisering.PassordSalt);
 
@@ -88,9 +84,7 @@ namespace WebprosjektBankOblig.BLL
 
         public string hentKundeNavn(string pn)
         {
-            var mDAL = new AuthDAL();
-
-            var kunde = mDAL.hentKunde(pn);
+            var kunde = authDAL.hentKunde(pn);
 
             if (kunde != null)
             {
@@ -102,10 +96,8 @@ namespace WebprosjektBankOblig.BLL
 
         public int hentNesteEngangspassord(string pn)
         {
-            var mDAL = new AuthDAL();
-
             //Finn BankIDBrikke knyttet til kunden
-            var auth = mDAL.hentAuth(pn);
+            var auth = authDAL.hentAuth(pn);
 
             //Sjekk om det eksisterer
             if (auth == null)
@@ -126,12 +118,12 @@ namespace WebprosjektBankOblig.BLL
             //Lagre endringer
             auth.engangsIterasjon = auth.engangsIterasjon - 1;
 
-            mDAL.endreAutentisering(auth);
+            authDAL.endreAutentisering(auth);
 
             return convertToHumanreadable(hash);
         }
 
-        private static byte[] generateSeed(int bits)
+        public static byte[] generateSeed(int bits)
         {
             int bytes = bits / 8;
 
@@ -154,7 +146,7 @@ namespace WebprosjektBankOblig.BLL
             return (int)(Math.Abs(temp % 1000000));
         }
 
-        private static byte[] Hash(string password, byte[] salt)
+        public static byte[] Hash(string password, byte[] salt)
         {
             byte[] bytes = new byte[password.Length * sizeof(char)];
             System.Buffer.BlockCopy(password.ToCharArray(), 0, bytes, 0, bytes.Length);
@@ -163,7 +155,7 @@ namespace WebprosjektBankOblig.BLL
             return alg.ComputeHash(Combine(bytes, salt));
         }
 
-        private static byte[] Combine(byte[] first, byte[] second)
+        public static byte[] Combine(byte[] first, byte[] second)
         {
             byte[] ret = new byte[first.Length + second.Length];
             Buffer.BlockCopy(first, 0, ret, 0, first.Length);
@@ -171,7 +163,7 @@ namespace WebprosjektBankOblig.BLL
             return ret;
         }
 
-        private static byte[] generateSalt(int bits)
+        public static byte[] generateSalt(int bits)
         {
             int bytes = bits / 8;
 

@@ -9,31 +9,25 @@ namespace WebprosjektBankOblig.DAL
 { 
     public class AuthDAL
     {
+        BankDbContext db = new BankDbContext();
+
         public Kunde hentKunde(string pn)
         {
-            var db = new BankDbContext();
-
             return db.Kunder.FirstOrDefault(x => x.Personnummer == pn);
         }
 
         public Kunde hentKunde(int id)
         {
-            var db = new BankDbContext();
-
             return db.Kunder.FirstOrDefault(x => x.Id == id);
         }
 
         public Autentisering hentAuth(string pn)
         {
-            var db = new BankDbContext();
-
             return db.Autentiseringer.FirstOrDefault(x => x.Kunde.Personnummer == pn);
         }
 
         public void endreAutentisering(Autentisering auth)
         {
-            var db = new BankDbContext();
-
             var aut = db.Autentiseringer.Find(auth.Id);
 
             aut.engangsIterasjon = auth.engangsIterasjon;
@@ -42,6 +36,11 @@ namespace WebprosjektBankOblig.DAL
             aut.PassordSalt = auth.PassordSalt;
             
             db.SaveChanges();            
+        }
+        
+        public AdminBruker hentAdmin(string login)
+        {
+            return db.Administratorer.FirstOrDefault(x => x.login == login);
         }
 
     }

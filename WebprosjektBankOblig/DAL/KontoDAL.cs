@@ -8,17 +8,21 @@ namespace WebprosjektBankOblig.DAL
 {
     public class KontoDAL
     {
+        BankDbContext db = new BankDbContext();
+
+
         public List<Konto> hentKontoer(string pn)
         {
-            var db = new BankDbContext();
-
             return db.Kontoer.Where(x => x.Kunde.Personnummer == pn).ToList();
+        }
+
+        public List<Konto> hentKontoer()
+        {
+            return db.Kontoer.ToList();
         }
 
         public Konto hentKonto(string kontonr)
         {
-            var db = new BankDbContext();
-
             return db.Kontoer.FirstOrDefault(x => x.kontonr == kontonr);
         }
     }

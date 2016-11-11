@@ -62,6 +62,7 @@ namespace WebprosjektBankOblig.Controllers
             Session["loggedInn"] = null;
             Session["Personnummer"] = null;
             Session["engangs"] = null;
+            Session["admin"] = null;
             Session["loggetUt"] = true;
 
             //Redirecter kunden til hovedsiden

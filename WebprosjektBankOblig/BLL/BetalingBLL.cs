@@ -10,25 +10,23 @@ namespace WebprosjektBankOblig.BLL
     public class BetalingBLL
     {
 
+        BetalingDAL betDAL = new BetalingDAL();
+
         public List<Betaling> hentBetalinger(string pn, int? id, bool? utført)
         {
-            var mDAL = new BetalingDAL();
-
             if (id.HasValue)
             {
-                return mDAL.hentBetalinger(pn, id.Value, utført);
+                return betDAL.hentBetalinger(pn, id.Value, utført);
             }
             else
             {
-                return mDAL.hentBetalinger(pn, utført);
+                return betDAL.hentBetalinger(pn, utført);
             }
         }
 
         public void registrerBetaling(Betaling betaling)
         {
-            var bDAL = new BetalingDAL();
-
-            bDAL.lagreBetaling(betaling);
+            betDAL.lagreBetaling(betaling);
         }
     
     }
