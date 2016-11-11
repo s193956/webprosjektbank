@@ -189,28 +189,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BLL\AdminBLL.cs" />
-    <Compile Include="BLL\AuthBLL.cs" />
-    <Compile Include="BLL\BetalingBLL.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BetalingController.cs" />
     <Compile Include="Controllers\LoggInnController.cs" />
-    <Compile Include="DAL\AdminDAL.cs" />
-    <Compile Include="DAL\AuthDAL.cs" />
-    <Compile Include="DAL\BetalingDAL.cs" />
-    <Compile Include="DAL\KontoDAL.cs" />
-    <Compile Include="DAL\LoggDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdminBruker.cs" />
-    <Compile Include="Models\Autentisering.cs" />
-    <Compile Include="Models\Betaling.cs" />
-    <Compile Include="DAL\BankDbContext.cs" />
-    <Compile Include="Models\Konto.cs" />
-    <Compile Include="Models\Kunde.cs" />
-    <Compile Include="Models\LoggEntry.cs" />
-    <Compile Include="Models\Poststed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -246,6 +230,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{75a9910a-1fe6-449c-8dcc-c157bed45ca1}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{dd38566f-bc94-4507-8e9f-8c73db5ae5ad}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
