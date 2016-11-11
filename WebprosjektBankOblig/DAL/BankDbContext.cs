@@ -41,6 +41,8 @@ namespace WebprosjektBankOblig.DAL
         public DbSet<Konto> Kontoer { get; set; }
         public DbSet<Betaling> Betalinger { get; set; }
         public DbSet<AdminBruker> Administratorer { get; set; }
+        public DbSet<LoggEntry> Logg { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -50,6 +52,7 @@ namespace WebprosjektBankOblig.DAL
             modelBuilder.Entity<Konto>().HasKey(p => p.Id);
             modelBuilder.Entity<Betaling>().HasKey(p => p.Id);
             modelBuilder.Entity<AdminBruker>().HasKey(p => p.Id);
+            modelBuilder.Entity<LoggEntry>().HasKey(p => p.Id);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 

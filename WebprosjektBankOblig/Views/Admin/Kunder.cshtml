@@ -4,9 +4,57 @@
     ViewBag.Title = "Kunder";
 }
 
-<div class="container text-center" style="padding:30px;">
-    <h2>Kunder</h2>
+<div class="container">
 
+    <div class="text-center">
+        <h2>Oversikt over betalinger</h2>
+    </div>
 
+    <table class="table">
+        <tr>
+            <th>
+                Personnummer
+            </th>
+            <th>
+                Navn
+            </th>
+            <th>
+                Addresse
+            </th>
+            <th>
+                Telefon
+            </th>
+            <th>
+                Postnummer
+            </th>
+            <th></th>
+        </tr>
 
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Personnummer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Navn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tlf)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Poststed.Nummer)
+                </td>
+                <td>
+                    @Html.ActionLink("Endre", "Endre", new { id = item.Id }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Oversikt", "Oversikt", new { id = item.Id }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Slett", "Slett", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
 </div>

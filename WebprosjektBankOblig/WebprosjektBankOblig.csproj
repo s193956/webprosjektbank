@@ -199,6 +199,7 @@
     <Compile Include="DAL\AuthDAL.cs" />
     <Compile Include="DAL\BetalingDAL.cs" />
     <Compile Include="DAL\KontoDAL.cs" />
+    <Compile Include="DAL\LoggDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -208,6 +209,7 @@
     <Compile Include="DAL\BankDbContext.cs" />
     <Compile Include="Models\Konto.cs" />
     <Compile Include="Models\Kunde.cs" />
+    <Compile Include="Models\LoggEntry.cs" />
     <Compile Include="Models\Poststed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

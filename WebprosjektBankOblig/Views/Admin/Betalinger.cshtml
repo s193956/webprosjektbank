@@ -3,11 +3,59 @@
 @{
     ViewBag.Title = "Betalinger";
 }
-<div class="container text-center" style="padding:30px;">
+<div class="container">
 
-    <h2>Betalinger</h2>
+    <div class="text-center">
+        <h2>Oversikt over betalinger</h2>
+    </div>
 
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.frakonto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tilkonto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.beløp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.melding)
+            </th>
+            <th></th>
+        </tr>
 
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.frakonto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tilkonto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dato)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.beløp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.melding)
+                </td>
+                <td>
+                    @Html.ActionLink("Endre", "Endre", new { id = item.Id }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Oversikt", "Oversikt", new { id = item.Id }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Slett", "Slett", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
 </div>
 
 
