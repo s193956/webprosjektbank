@@ -14,11 +14,20 @@ namespace WebprosjektBankOblig.Controllers
 {
     public class LoggInnController : Controller
     {
+        private IAuthBLL _authBLL;
+
+        public LoggInnController()
+        {
+            _authBLL = new AuthBLL();
+        }
+
+        public LoggInnController(IAuthBLL stub)
+        {
+            _authBLL = stub;
+        }
         public ActionResult Index()
         {
-            var mBLL = new AuthBLL();
-
-            mBLL.insertTestData();
+            _authBLL.insertTestData();
 
             return View();
         }
@@ -88,11 +97,9 @@ namespace WebprosjektBankOblig.Controllers
         {
             var db = new BankDbContext();
 
-            var mBLL = new AuthBLL();
-
             bool success = false;
 
-            if (mBLL.kundeEksisterer(personnummer))
+            if (_authBLL.kundeEksisterer(personnummer))
             {
                 Session["Personnummer"] = personnummer;
                 success = true;
@@ -110,9 +117,7 @@ namespace WebprosjektBankOblig.Controllers
 
             if (pnummer != null)
             {
-                var mBLL = new AuthBLL();
-
-                if (mBLL.validerEngangspassord(pnummer, engangspassord))
+                if (_authBLL.validerEngangspassord(pnummer, engangspassord))
                 {
                     Session["engangs"] = true;
                     success = true;
@@ -148,9 +153,7 @@ namespace WebprosjektBankOblig.Controllers
         [HttpGet]
         public JsonResult getNextOTP(string pnummer)
         {
-            var mBLL = new AuthBLL();
-
-            return Json(mBLL.hentNesteEngangspassord(pnummer), JsonRequestBehavior.AllowGet);
+            return Json(_authBLL.hentNesteEngangspassord(pnummer), JsonRequestBehavior.AllowGet);
         }
     }
 }

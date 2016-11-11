@@ -16,6 +16,19 @@ namespace WebprosjektBankOblig.Controllers
     {
         private BankDbContext db = new BankDbContext();
 
+
+        private IBetalingBLL _betBLL;
+
+        public BetalingController()
+        {
+            _betBLL = new BetalingBLL();
+        }
+
+        public BetalingController(IBetalingBLL stub)
+        {
+            _betBLL = stub;
+        }
+
         public ActionResult Index(int? id)
         {
             //Dersom kunden skriver /Betaling/en eller annen action så vil han/hun
@@ -27,9 +40,8 @@ namespace WebprosjektBankOblig.Controllers
 
             var personnummer = (string)Session["Personnummer"];
 
-            var mBLL = new BetalingBLL();
 
-            return View(mBLL.hentBetalinger(personnummer, id, false));
+            return View(_betBLL.hentBetalinger(personnummer, id, false));
 
         }
 
@@ -44,9 +56,7 @@ namespace WebprosjektBankOblig.Controllers
 
             var personnummer = (string)Session["Personnummer"];
 
-            var mBLL = new BetalingBLL();
-
-            return View(mBLL.hentBetalinger(personnummer, id, true));
+            return View(_betBLL.hentBetalinger(personnummer, id, true));
 
         }
 
@@ -90,9 +100,7 @@ namespace WebprosjektBankOblig.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mBLL = new BetalingBLL();
-
-                mBLL.registrerBetaling(betaling);
+                _betBLL.registrerBetaling(betaling);
 
                 return RedirectToAction("Index");
             }

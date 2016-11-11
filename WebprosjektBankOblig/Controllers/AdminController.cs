@@ -11,11 +11,23 @@ namespace WebprosjektBankOblig.Controllers
     public class AdminController : Controller
     {
 
-        AdminBLL adminBLL = new AdminBLL(); 
-        
+        AdminBLL adminBLL = new AdminBLL();
+
+        private IAdminBLL _adminBLL;
+
+        public AdminController()
+        {
+            _adminBLL = new AdminBLL();
+        }
+
+        public AdminController(IAdminBLL stub)
+        {
+            _adminBLL = stub;
+        }
+
         public ActionResult Index()
         {
-            var bruker = adminBLL.lagAdminBruker();
+            var bruker = _adminBLL.lagAdminBruker();
             
             return View(bruker);
         }
