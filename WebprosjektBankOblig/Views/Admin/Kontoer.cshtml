@@ -32,9 +32,7 @@
                     @Html.DisplayFor(modelItem => item.saldo)
                 </td>
                 <td>
-                    @Html.ActionLink("Ny Betaling", "Registrer", "Betaling", new { id = item.Id }, new { @class = "btn btn-default" }) |
-                    @Html.ActionLink("Betalingsoverssikt", "Index", "Betaling", new { id = item.Id }, new { @class = "btn btn-success" }) |
-                    @Html.ActionLink("Utførte betalinger", "Utforte", "Betaling", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    <a class="SlettBtn btn btn-danger" data-id="@item.Id" href="#">Slett</a>
                 </td>
             </tr>
         }

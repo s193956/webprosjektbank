@@ -49,12 +49,99 @@
                     @Html.DisplayFor(modelItem => item.Poststed.Nummer)
                 </td>
                 <td>
-                    @Html.ActionLink("Endre", "Endre", new { id = item.Id }, new { @class = "btn btn-default" }) |
-                    @Html.ActionLink("Oversikt", "Oversikt", new { id = item.Id }, new { @class = "btn btn-success" }) |
-                    @Html.ActionLink("Slett", "Slett", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    <a class="EndreBtn btn btn-default" data-id="@item.Id" href="#">Endre</a>
+                    <a class="SlettBtn btn btn-danger" data-id="@item.Id" href="#">Slett</a>
                 </td>
             </tr>
         }
 
     </table>
 </div>
+
+
+<div class="modal fade" id="AdminEndreKundeModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Endre Kunde</h4>
+            </div>
+            <div class="modal-body form-group-lg">
+
+                <div class="form-group">
+                    <input type="text" class="personnummer form-control" readonly/>
+                </div>
+                <div class="form-group ce">
+                    <input type="text" class="navn form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="adresse form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="tlf form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="number" class="postnummer form-control" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-block btn-danger" href="">Endre</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="AdminSlettKundeModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Slett Kunde</h4>
+            </div>
+            <div class="modal-body">
+                Er du sikker på du vil slette kunden?
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-block btn-danger" href="">Slett</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var $modal = $("#AdminEndreKundeModal");
+    var $slettmodal = $("#AdminSlettKundeModal");
+
+    $(".EndreBtn").on("click", function () {
+        var $h = $(this);
+        var $tr = $h.closest("tr");
+
+        var id = $h.attr("data-id");
+        var personnummer = $tr.find(".personnummer").html().trim();
+        var navn = $tr.find(".navn").html().trim();
+        var adresse = $tr.find(".adresse ").html().trim();
+        var tlf = $tr.find(".tlf").html().trim();
+        var postnummer = $tr.find(".postnummer").html().trim();
+
+        $modal.find(".personnummer").val(personnummer);
+        $modal.find(".navn").val(navn);
+        $modal.find(".adresse").val(adresse);
+        $modal.find(".tlf").val(tlf);
+        $modal.find(".postnummer").val(postnummer);
+
+        $modal.modal("show");
+    });
+
+    $(".SlettBtn").on("click", function () {
+        var $h = $(this);
+        var $tr = $h.closest("tr");
+
+        $slettmodal.modal("show");
+    });
+</script>
+
