@@ -173,9 +173,12 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\AuthBLL.cs" />
+    <Compile Include="BLL\BetalingBLL.cs" />
     <Compile Include="Controllers\BetalingController.cs" />
     <Compile Include="Controllers\LoggInnController.cs" />
     <Compile Include="DAL\AuthDAL.cs" />
+    <Compile Include="DAL\BetalingDAL.cs" />
+    <Compile Include="DAL\KontoDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

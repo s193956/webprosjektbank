@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebprosjektBankOblig.BLL;
 using WebprosjektBankOblig.DAL;
 using WebprosjektBankOblig.Models;
 
@@ -26,75 +27,46 @@ namespace WebprosjektBankOblig.Controllers
 
             var personnummer = (string)Session["Personnummer"];
 
-            if (id != null)
-            {
-                var betalinger = from b in db.Betalinger
-                                 where b.Konto.Kunde.Personnummer.Equals(personnummer) &&
-                                 b.Konto.Id == (int)id &&
-                                 !b.utført
-                                 orderby b.dato
-                                 select b;
+            var mBLL = new BetalingBLL();
 
-                return View(betalinger.ToList());
-            }
-            else
-            {
-                var betalinger = from b in db.Betalinger
-                                 where b.Konto.Kunde.Personnummer.Equals(personnummer) &&
-                                 !b.utført
-                                 orderby b.dato
-                                 select b;
+            return View(mBLL.hentBetalinger(personnummer, id, false));
 
-                return View(betalinger.ToList());
-            }
         }
 
         public ActionResult Utforte(int? id)
         {
             //Dersom kunden skriver /Betaling/en eller annen action så vil han/hun
             //bli returnert til hovedsiden hvis de ikke er pålogget
-            if(Session["loggedInn"] == null)
+            if (Session["loggedInn"] == null)
             {
-                return RedirectToAction("Index","LoggInn");
+                return RedirectToAction("Index", "LoggInn");
             }
 
-            var personnummer = (string) Session["Personnummer"];
+            var personnummer = (string)Session["Personnummer"];
 
-            if (id != null)
-            {
-                var betalinger = from b in db.Betalinger
-                                 where b.Konto.Kunde.Personnummer.Equals(personnummer) &&
-                                 b.Konto.Id == (int)id &&
-                                 b.utført
-                                 orderby b.dato
-                                 select b;
+            var mBLL = new BetalingBLL();
 
-                return View(betalinger.ToList());
-            }
-            else
-            {
-                var betalinger = from b in db.Betalinger
-                                  where b.Konto.Kunde.Personnummer.Equals(personnummer) &&
-                                  b.utført
-                                  orderby b.dato
-                                  select b;
+            return View(mBLL.hentBetalinger(personnummer, id, true));
 
-                return View(betalinger.ToList());
-            }
         }
 
         //Kan sende med null verdi
         public ActionResult Oversikt(int? id)
         {
-            if (id == null)
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Betaling betaling = db.Betalinger.Find(id);
+
+            var mDAL = new BetalingDAL();
+
+            var betaling = mDAL.hentBetaling(id.Value);
+
             if (betaling == null)
             {
                 return HttpNotFound();
             }
+
             return View(betaling);
         }
 
@@ -102,32 +74,34 @@ namespace WebprosjektBankOblig.Controllers
         {
             var personnummer = (string)Session["Personnummer"];
 
-            var kontoer = db.Kontoer.Where(x => x.Kunde.Personnummer.Equals(personnummer)).ToList();
+            var mDAL = new KontoDAL();
+
+            var kontoer = mDAL.hentKontoer(personnummer);
 
             ViewData.Add("Kontoer", kontoer);
             ViewData.Add("SelectedKonto", id);
 
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Registrer([Bind(Include = "Id,frakonto,tilkonto,dato,beløp,melding")] Betaling betaling)
         {
             if (ModelState.IsValid)
             {
-                var fraKonto = db.Kontoer.FirstOrDefault(x => x.kontonr.Equals(betaling.frakonto));
+                var mBLL = new BetalingBLL();
 
-                betaling.Konto = fraKonto;
+                mBLL.registrerBetaling(betaling);
 
-                db.Betalinger.Add(betaling);
-                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             var personnummer = (string)Session["Personnummer"];
+            
+            var mDAL = new KontoDAL();
 
-            var kontoer = db.Kontoer.Where(x => x.Kunde.Personnummer.Equals(personnummer)).ToList();
+            var kontoer = mDAL.hentKontoer(personnummer);
 
             ViewData.Add("Kontoer", kontoer);
 
@@ -136,26 +110,33 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Endre(int? id)
         {
-            if (id == null)
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Betaling betaling = db.Betalinger.Find(id);
+
+            var mDAL = new BetalingDAL();
+
+            var betaling = mDAL.hentBetaling(id.Value);
+            
             if (betaling == null)
             {
                 return HttpNotFound();
             }
+
             return View(betaling);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Endre([Bind(Include = "Id,frakonto,tilkonto,dato,beløp,melding")] Betaling betaling)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(betaling).State = EntityState.Modified;
-                db.SaveChanges();
+                var mDAL = new BetalingDAL();
+
+                mDAL.endreBetaling(betaling);
+                
                 return RedirectToAction("Index");
             }
             return View(betaling);
@@ -167,7 +148,11 @@ namespace WebprosjektBankOblig.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Betaling betaling = db.Betalinger.Find(id);
+
+            var mDAL = new BetalingDAL();
+
+            var betaling = mDAL.hentBetaling(id.Value);
+            
             if (betaling == null)
             {
                 return HttpNotFound();
@@ -179,19 +164,11 @@ namespace WebprosjektBankOblig.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Betaling betaling = db.Betalinger.Find(id);
-            db.Betalinger.Remove(betaling);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+            var mDAL = new BetalingDAL();
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            mDAL.slettBetaling(id);
+
+            return RedirectToAction("Index");
         }
     }
 }
