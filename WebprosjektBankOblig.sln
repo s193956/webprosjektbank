@@ -4,10 +4,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebprosjektBankOblig", "WebprosjektBankOblig\WebprosjektBankOblig.csproj", "{91879D1A-F723-4F44-8B90-7C888DB5B145}"
+	ProjectSection(ProjectDependencies) = postProject
+		{75A9910A-1FE6-449C-8DCC-C157BED45CA1} = {75A9910A-1FE6-449C-8DCC-C157BED45CA1}
+		{DD38566F-BC94-4507-8E9F-8C73DB5AE5AD} = {DD38566F-BC94-4507-8E9F-8C73DB5AE5AD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{75A9910A-1FE6-449C-8DCC-C157BED45CA1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{228A1A6A-315C-4F02-B615-DC16B8754F4F} = {228A1A6A-315C-4F02-B615-DC16B8754F4F}
+		{DD38566F-BC94-4507-8E9F-8C73DB5AE5AD} = {DD38566F-BC94-4507-8E9F-8C73DB5AE5AD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{228A1A6A-315C-4F02-B615-DC16B8754F4F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DD38566F-BC94-4507-8E9F-8C73DB5AE5AD} = {DD38566F-BC94-4507-8E9F-8C73DB5AE5AD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{DD38566F-BC94-4507-8E9F-8C73DB5AE5AD}"
 EndProject
