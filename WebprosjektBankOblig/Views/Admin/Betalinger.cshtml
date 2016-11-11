@@ -32,19 +32,19 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="frakonto">
                     @Html.DisplayFor(modelItem => item.frakonto)
                 </td>
-                <td>
+                <td class="tilkonto">
                     @Html.DisplayFor(modelItem => item.tilkonto)
                 </td>
-                <td>
+                <td class="dato">
                     @Html.DisplayFor(modelItem => item.dato)
                 </td>
-                <td>
+                <td class="beløp">
                     @Html.DisplayFor(modelItem => item.beløp)
                 </td>
-                <td>
+                <td class="melding">
                     @Html.DisplayFor(modelItem => item.melding)
                 </td>
                 <td>

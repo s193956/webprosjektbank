@@ -33,19 +33,19 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="personnummer">
                     @Html.DisplayFor(modelItem => item.Personnummer)
                 </td>
-                <td>
+                <td class="navn">
                     @Html.DisplayFor(modelItem => item.Navn)
                 </td>
-                <td>
+                <td class="adresse">
                     @Html.DisplayFor(modelItem => item.Adresse)
                 </td>
-                <td>
+                <td class="tlf">
                     @Html.DisplayFor(modelItem => item.Tlf)
                 </td>
-                <td>
+                <td class="postnummer">
                     @Html.DisplayFor(modelItem => item.Poststed.Nummer)
                 </td>
                 <td>
