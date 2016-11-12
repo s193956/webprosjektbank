@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using WebprosjektBankOblig.Models;
+using System.Data.SqlClient;
 
 namespace WebprosjektBankOblig.DAL
 {
@@ -41,9 +42,9 @@ namespace WebprosjektBankOblig.DAL
         }
 
         public void lagreBetaling(Betaling betaling)
-        { 
+        {
             db.Betalinger.Add(betaling);
-            
+
             var fraKonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.frakonto);
 
             betaling.Konto = fraKonto;
@@ -54,16 +55,7 @@ namespace WebprosjektBankOblig.DAL
         public void endreBetaling(Betaling betaling)
         {
             db.Entry(betaling).State = EntityState.Modified;
-            /*
-            var betaling = db.Betalinger.Find(b.Id);
-            
-            betaling.beløp = b.beløp;
-            betaling.dato = b.dato;
-            betaling.frakonto = b.frakonto;
-            betaling.melding = b.melding;
-            betaling.tilkonto = b.tilkonto;
-            betaling.utført = b.utført;
-            */
+
             db.SaveChanges();
         }
 
@@ -72,6 +64,27 @@ namespace WebprosjektBankOblig.DAL
             var betaling = hentBetaling(id);
 
             db.Betalinger.Remove(betaling);
+
+            db.SaveChanges();
+        }
+
+        public void endreBetaling(int id, string frakonto, string tilkonto, string dato, string beløp, string melding)
+        {
+            var bet = db.Betalinger.Find(id);
+
+            if (bet == null)
+                throw new Exception("Betalingen finnes ikke!");
+
+            bet.frakonto = frakonto;
+            bet.tilkonto = tilkonto;
+            bet.dato = dato;
+            bet.beløp = beløp;
+            bet.melding = melding;
+
+            if (!db.ChangeTracker.HasChanges())
+            {
+                throw new Exception("HVA FAEN I HELVETE ER DET SOM FOREGÅR");
+            }
 
             db.SaveChanges();
         }

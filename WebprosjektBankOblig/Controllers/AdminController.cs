@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebprosjektBankOblig.BLL;
 using WebprosjektBankOblig.DAL;
+using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.Controllers
 {

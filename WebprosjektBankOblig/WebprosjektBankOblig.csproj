@@ -218,9 +218,7 @@
     <Content Include="Views\Betaling\Utforte.cshtml" />
     <Content Include="Views\LoggInn\BankIdBrikke.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Kunder.cshtml" />
-    <Content Include="Views\Admin\Kontoer.cshtml" />
-    <Content Include="Views\Admin\Betalinger.cshtml" />
+    <Content Include="Views\Admin\Kunder2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

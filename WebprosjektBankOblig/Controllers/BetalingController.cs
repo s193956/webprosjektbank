@@ -40,7 +40,6 @@ namespace WebprosjektBankOblig.Controllers
 
             var personnummer = (string)Session["Personnummer"];
 
-
             return View(_betBLL.hentBetalinger(personnummer, id, false));
 
         }

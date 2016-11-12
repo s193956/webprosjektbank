@@ -38,6 +38,6 @@ namespace WebprosjektBankOblig.BLL
         {
             _repository.lagreBetaling(betaling);
         }
-    
+   
     }
 }
