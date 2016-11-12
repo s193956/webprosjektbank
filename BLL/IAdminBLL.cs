@@ -1,4 +1,5 @@
-﻿using WebprosjektBankOblig.Models;
+﻿using System.Collections.Generic;
+using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.BLL
 {
@@ -6,5 +7,7 @@ namespace WebprosjektBankOblig.BLL
     {
         AdminBruker lagAdminBruker();
         bool validerPassord(string l, string p);
+
+        List<Kunde> hentAlleKunder();
     }
 }

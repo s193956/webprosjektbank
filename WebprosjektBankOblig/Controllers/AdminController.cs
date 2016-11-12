@@ -4,25 +4,31 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebprosjektBankOblig.BLL;
-using WebprosjektBankOblig.DAL;
 
 namespace WebprosjektBankOblig.Controllers
 {
     public class AdminController : Controller
     {
 
-        AdminBLL adminBLL = new AdminBLL();
-
         private IAdminBLL _adminBLL;
+        private IAuthBLL _authBLL;
+        private IKontoBLL _kontBLL;
+        private IBetalingBLL _betBLL;
 
         public AdminController()
         {
             _adminBLL = new AdminBLL();
+            _authBLL = new AuthBLL();
+            _kontBLL = new KontoBLL();
+            _betBLL = new BetalingBLL();
         }
 
-        public AdminController(IAdminBLL stub)
+        public AdminController(IAdminBLL stub, IAuthBLL stub2, IKontoBLL stub3, IBetalingBLL stub4)
         {
             _adminBLL = stub;
+            _authBLL = stub2;
+            _kontBLL = stub3;
+            _betBLL = stub4;
         }
 
         public ActionResult Index()
@@ -34,21 +40,21 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Kunder()
         {
-            var kunder = new AdminRepository().hentAlleKunder();
+            var kunder = _adminBLL.hentAlleKunder();
 
             return View(kunder);
         }
 
         public ActionResult Kontoer()
         {
-            var kontoer = new KontoRepository().hentKontoer();
+            var kontoer = _kontBLL.hentKontoer();
 
             return View(kontoer);
         }
 
         public ActionResult Betalinger()
         {
-            var betalinger = new BetalingRepository().hentBetalinger();
+            var betalinger = _betBLL.hentBetalinger();
 
             return View(betalinger);
         }
@@ -56,7 +62,7 @@ namespace WebprosjektBankOblig.Controllers
         [HttpGet]
         public JsonResult Login(string login, string passord)
         {
-            if(adminBLL.validerPassord(login, passord)){
+            if(_adminBLL.validerPassord(login, passord)){
                 Session["admin"] = true;
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
