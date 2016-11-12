@@ -2,6 +2,26 @@
 @{
     ViewBag.Title = "Index";
 }
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="lead nav nav-justified nav-pills">
+                    <li class="">
+                        <a href="#"><i class="fa fa-fw fa-user"></i>Kunder</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-fw fa-th-list"></i>Kontoer</a>
+                    </li>
+                    <li class="">
+                        <a href="#"><i class="fa fa-fw fa-server"></i>Oversikt</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container text-center" style="padding:60px;">
 
     @if (Session["admin"] != null)
@@ -12,4 +32,18 @@
         </span>
     }
 
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron k">
+                    <h1>Admin</h1>
+                    <p>Innlogget som Admin</p>
+                    <a class="btn btn-large btn-primary">Logg Ut</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
