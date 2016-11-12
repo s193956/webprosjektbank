@@ -24,7 +24,12 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult KontoOversikt(int? id)
         {
-            var admin = (bool)Session["admin"];
+            var admin = false;
+
+            if (Session["admin"] != null)
+            {
+                admin = true;
+            }
 
             if (!admin)
             {

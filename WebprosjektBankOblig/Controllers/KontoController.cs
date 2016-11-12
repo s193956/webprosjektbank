@@ -13,7 +13,12 @@ namespace WebprosjektBankOblig.Controllers
         public ActionResult Oversikt(int? kundeId)
         {
             var personnummer = (string)Session["Personnummer"];
-            var admin = (bool)Session["admin"];
+            var admin = false;
+
+            if (Session["admin"] != null)
+            {
+                admin = true;
+            }
 
             if (personnummer != null)
             {

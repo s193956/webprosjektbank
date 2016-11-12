@@ -59,14 +59,14 @@ namespace WebprosjektBankOblig.Controllers
         }
 
         //Kan sende med null verdi
-        public ActionResult Oversikt(int id)
+        public ActionResult Oversikt(int? id)
         {
-            if (id != 0)
+            if (!id.HasValue)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var betaling = _betBLL.hentBetaling(id);
+            var betaling = _betBLL.hentBetaling(id.Value);
 
             if (betaling == null)
             {
