@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{DD38566F-BC94-4507-8E9F-8C73DB5AE5AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enhetstest", "Enhetstest\Enhetstest.csproj", "{F3677B15-C756-4C56-95B4-417169BB81D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{DD38566F-BC94-4507-8E9F-8C73DB5AE5AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD38566F-BC94-4507-8E9F-8C73DB5AE5AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD38566F-BC94-4507-8E9F-8C73DB5AE5AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3677B15-C756-4C56-95B4-417169BB81D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3677B15-C756-4C56-95B4-417169BB81D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3677B15-C756-4C56-95B4-417169BB81D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3677B15-C756-4C56-95B4-417169BB81D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
