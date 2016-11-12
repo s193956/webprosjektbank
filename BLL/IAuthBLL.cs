@@ -1,4 +1,6 @@
-﻿namespace WebprosjektBankOblig.BLL
+﻿using WebprosjektBankOblig.Models;
+
+namespace WebprosjektBankOblig.BLL
 {
     public interface IAuthBLL
     {
@@ -8,5 +10,7 @@
         bool kundeEksisterer(string pn);
         bool validerEngangspassord(string pn, int ep);
         bool validerPassord(string pn, string passord);
+
+        Kunde hentKunde(int id);
     }
 }

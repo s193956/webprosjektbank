@@ -7,7 +7,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebprosjektBankOblig.BLL;
-using WebprosjektBankOblig.DAL;
 using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.Controllers
@@ -15,15 +14,18 @@ namespace WebprosjektBankOblig.Controllers
     public class LoggInnController : Controller
     {
         private IAuthBLL _authBLL;
+        private IKontoBLL _kontBLL;
 
         public LoggInnController()
         {
             _authBLL = new AuthBLL();
+            _kontBLL = new KontoBLL();
         }
 
-        public LoggInnController(IAuthBLL stub)
+        public LoggInnController(IAuthBLL stub, IKontoBLL stub2)
         {
             _authBLL = stub;
+            _kontBLL = stub2;
         }
         public ActionResult Index()
         {
@@ -76,9 +78,7 @@ namespace WebprosjektBankOblig.Controllers
 
             if (personnummer != null)
             {
-                var db = new BankDbContext();
-
-                var kontoer = db.Kontoer.Where(x => x.Kunde.Personnummer.Equals(personnummer));
+                var kontoer = _kontBLL.hentKontoer();
 
                 return View(kontoer.ToList());
             }
@@ -101,13 +101,11 @@ namespace WebprosjektBankOblig.Controllers
             return RedirectToAction("Index", "LoggInn");
         }
 
-        public ActionResult BankIdBrikke(int? id)
+        public ActionResult BankIdBrikke(int id)
         {
-            var mDAL = new AuthRepository();
-
-            if (id.HasValue)
+            if (id != 0)
             {
-                var kunde = mDAL.hentKunde(id.Value);
+                var kunde = _authBLL.hentKunde(id);
 
                 if (kunde != null)
                     return View(kunde);
@@ -118,8 +116,6 @@ namespace WebprosjektBankOblig.Controllers
         [HttpGet]
         public JsonResult Personnummer(string personnummer)
         {
-            var db = new BankDbContext();
-
             bool success = false;
 
             if (_authBLL.kundeEksisterer(personnummer))

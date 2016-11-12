@@ -10,15 +10,18 @@ namespace WebprosjektBankOblig.BLL
     public class AdminBLL : BLL.IAdminBLL
     {
         private IAuthRepository _repository;
+        private IAdminRepository _rep2;
 
         public AdminBLL()
         {
             _repository = new AuthRepository();
+            _rep2 = new AdminRepository();
         }
 
-        public AdminBLL(IAuthRepository stub)
+        public AdminBLL(IAuthRepository stub, IAdminRepository stub2)
         {
             _repository = stub;
+            _rep2 = stub2;
         }
         public AdminBruker lagAdminBruker()
         {
@@ -48,6 +51,11 @@ namespace WebprosjektBankOblig.BLL
             var hashed = AuthBLL.Hash(p, admin.passordSalt);
 
             return admin.passordHash.SequenceEqual(hashed);
+        }
+
+        public List<Kunde> hentAlleKunder()
+        {
+            return _rep2.hentAlleKunder();
         }
     }
 }

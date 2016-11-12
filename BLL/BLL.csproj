@@ -47,6 +47,8 @@
     <Compile Include="IAdminBLL.cs" />
     <Compile Include="IAuthBLL.cs" />
     <Compile Include="IBetalingBLL.cs" />
+    <Compile Include="IKontoBLL.cs" />
+    <Compile Include="KontoBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,26 +7,25 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebprosjektBankOblig.BLL;
-using WebprosjektBankOblig.DAL;
 using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.Controllers
 {
     public class BetalingController : Controller
     {
-        private BankDbContext db = new BankDbContext();
-
-
         private IBetalingBLL _betBLL;
+        private IKontoBLL _kontBLL;
 
         public BetalingController()
         {
             _betBLL = new BetalingBLL();
+            _kontBLL = new KontoBLL();
         }
 
-        public BetalingController(IBetalingBLL stub)
+        public BetalingController(IBetalingBLL stub, IKontoBLL stub2)
         {
             _betBLL = stub;
+            _kontBLL = stub2;
         }
 
         public ActionResult Index(int? id)
@@ -60,16 +59,14 @@ namespace WebprosjektBankOblig.Controllers
         }
 
         //Kan sende med null verdi
-        public ActionResult Oversikt(int? id)
+        public ActionResult Oversikt(int id)
         {
-            if (!id.HasValue)
+            if (id != 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var mDAL = new BetalingRepository();
-
-            var betaling = mDAL.hentBetaling(id.Value);
+            var betaling = _betBLL.hentBetaling(id);
 
             if (betaling == null)
             {
@@ -83,9 +80,8 @@ namespace WebprosjektBankOblig.Controllers
         {
             var personnummer = (string)Session["Personnummer"];
 
-            var mDAL = new KontoRepository();
 
-            var kontoer = mDAL.hentKontoer(personnummer);
+            var kontoer = _kontBLL.hentKontoer(personnummer);
 
             ViewData.Add("Kontoer", kontoer);
             ViewData.Add("SelectedKonto", id);
@@ -106,9 +102,7 @@ namespace WebprosjektBankOblig.Controllers
 
             var personnummer = (string)Session["Personnummer"];
             
-            var mDAL = new KontoRepository();
-
-            var kontoer = mDAL.hentKontoer(personnummer);
+            var kontoer = _kontBLL.hentKontoer(personnummer);
 
             ViewData.Add("Kontoer", kontoer);
 
@@ -122,9 +116,7 @@ namespace WebprosjektBankOblig.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var mDAL = new BetalingRepository();
-
-            var betaling = mDAL.hentBetaling(id.Value);
+            var betaling = _betBLL.hentBetaling(id.Value);
             
             if (betaling == null)
             {
@@ -140,9 +132,7 @@ namespace WebprosjektBankOblig.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mDAL = new BetalingRepository();
-
-                mDAL.endreBetaling(betaling);
+                _betBLL.endreBetaling(betaling);
                 
                 return RedirectToAction("Index");
             }
@@ -156,9 +146,7 @@ namespace WebprosjektBankOblig.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var mDAL = new BetalingRepository();
-
-            var betaling = mDAL.hentBetaling(id.Value);
+            var betaling = _betBLL.hentBetaling(id.Value);
             
             if (betaling == null)
             {
@@ -171,9 +159,7 @@ namespace WebprosjektBankOblig.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var mDAL = new BetalingRepository();
-
-            mDAL.slettBetaling(id);
+            _betBLL.slettBetaling(id);
 
             return RedirectToAction("Index");
         }

@@ -7,5 +7,11 @@ namespace WebprosjektBankOblig.BLL
     {
         List<Betaling> hentBetalinger(string pn, int? id, bool? utført);
         void registrerBetaling(Betaling betaling);
+        Betaling hentBetaling(int id);
+
+        List<Betaling> hentBetalinger();
+        void endreBetaling(Betaling betaling);
+
+        void slettBetaling(int id);
     }
 }
