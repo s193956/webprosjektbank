@@ -16,6 +16,7 @@ namespace WebprosjektBankOblig.Models
         public string Adresse { get; set; }
         public string Tlf { get; set; }
 
+        public bool slettet { get; set; }
         public virtual Poststed Poststed { get; set; }
         public virtual Autentisering Autentisering { get; set; }
         public virtual ICollection<Konto> Kontoer { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model WebprosjektBankOblig.Models.Kunde
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Opprett kunde";
 }
 
 <h2>Create</h2>
@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Kunde</h4>
+        <h4>Opprett kunde</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

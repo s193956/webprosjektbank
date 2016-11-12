@@ -5,8 +5,6 @@
 }
 
 <div class="container text-center" style="padding:60px;">
-
-
     <h2>Kunder
         <span class="pull-right">
             @Html.ActionLink("Opprett Kunde", "Create", new { }, new { @class = "btn btn-default" })
@@ -48,12 +46,54 @@
                     @Html.ActionLink("Detaljer", "Details", new { id = item.Id }, new { @class = "btn btn-default" }) |
                     @Html.ActionLink("Konto Oversikt", "KontoOversikt", new { id = item.Id }, new { @class = "btn btn-success" }) |
                     @Html.ActionLink("Endre", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |
-                    @Html.ActionLink("Slett", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    <button class="DeleteBtn btn btn-danger" data-id="@item.Id">Slett</button>
                 </td>
             </tr>
         }
 
     </table>
-
+    
 
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade " id="deleteModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Slett Kunde</h4>
+            </div>
+            <div class="modal-body">
+                <p>Er du sikker på at du vil slette kunden?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="ConfirmDelete" class="btn btn-danger btn-block btn-lg">Slett</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".DeleteBtn").on("click", function () {
+        var $h = $(this);
+
+        var $id = $h.attr("data-id");
+
+        $("#deleteModal").modal("show");
+
+        $("#ConfirmDelete").one("click", function () {
+            $.ajax({
+                type: "POST",
+                url: "/Kunde/Delete/" + $id,
+                data: { id: $id },
+                success: function () {
+                    $("#deleteModal").modal("hide");
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>

@@ -30,7 +30,7 @@ namespace WebprosjektBankOblig.BLL
         {
             var kunde = _repository.hentKunde(pn);
 
-            return kunde != null;
+            return kunde != null && !kunde.slettet;
         }
 
         public Kunde hentKunde(int id)

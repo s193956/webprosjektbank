@@ -102,7 +102,6 @@ namespace WebprosjektBankOblig.Controllers
 
         // POST: Kontoes/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Konto konto = db.Kontoer.Find(id);
@@ -110,7 +109,5 @@ namespace WebprosjektBankOblig.Controllers
             db.SaveChanges();
             return RedirectToAction("Oversikt");
         }
-
-
     }
 }

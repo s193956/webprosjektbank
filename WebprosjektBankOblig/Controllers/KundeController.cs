@@ -18,7 +18,7 @@ namespace WebprosjektBankOblig.Controllers
         // GET: Kunde
         public ActionResult Index()
         {
-            var kunder = db.Kunder;
+            var kunder = db.Kunder.Where(x => !x.slettet);
             return View(kunder.ToList());
         }
 
@@ -138,11 +138,10 @@ namespace WebprosjektBankOblig.Controllers
 
         // POST: Kunde/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Kunde kunde = db.Kunder.Find(id);
-            db.Kunder.Remove(kunde);
+            kunde.slettet = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

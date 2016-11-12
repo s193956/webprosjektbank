@@ -156,7 +156,6 @@ namespace WebprosjektBankOblig.Controllers
         }
 
         [HttpPost, ActionName("Slett")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             _betBLL.slettBetaling(id);

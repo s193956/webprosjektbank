@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebprosjektBankOblig.Models.Betaling>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Betalinger";
 }
 <div class="container">
 
@@ -50,10 +50,51 @@
                 <td>
                     @Html.ActionLink("Endre", "Endre", new { id = item.Id }, new { @class = "btn btn-default" }) |
                     @Html.ActionLink("Oversikt", "Oversikt", new { id = item.Id }, new { @class = "btn btn-success" }) |
-                    @Html.ActionLink("Slett", "Slett", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    <button class="DeleteBtn btn btn-danger" data-id="@item.Id">Slett</button>
                 </td>
             </tr>
         }
 
     </table>
 </div>
+
+<!-- Modal -->
+<div class="modal fade " id="deleteModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Slett betaling</h4>
+            </div>
+            <div class="modal-body">
+                <p>Er du sikker på at du vil slette betalingen?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="ConfirmDelete" class="btn btn-danger btn-block btn-lg">Slett</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".DeleteBtn").on("click", function () {
+        var $h = $(this);
+
+        var $id = $h.attr("data-id");
+
+        $("#deleteModal").modal("show");
+
+        $("#ConfirmDelete").one("click", function () {
+            $.ajax({
+                type: "POST",
+                url: "/Betaling/Slett/" + $id,
+                data: { id: $id },
+                success: function () {
+                    $("#deleteModal").modal("hide");
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>
