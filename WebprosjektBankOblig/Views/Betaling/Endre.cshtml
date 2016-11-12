@@ -11,7 +11,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Endre betaling</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
@@ -58,15 +57,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Tilbake", "Index", "", new { @class = "btn btn-default" })
                 <input type="submit" value="Lagre" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Tilbake", "Index" )
-</div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

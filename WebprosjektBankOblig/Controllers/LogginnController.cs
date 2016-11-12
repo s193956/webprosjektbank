@@ -66,26 +66,11 @@ namespace WebprosjektBankOblig.Controllers
             if (adminBLL.validerPassord(login, passord))
             {
                 Session["admin"] = true;
+                Session["loggetUt"] = null;
                 return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult EtterLogginn()
-        {
-            var personnummer = (string)Session["Personnummer"];
-
-            if (personnummer != null)
-            {
-                var kontoer = _kontBLL.hentKontoer();
-
-                return View(kontoer.ToList());
-            }
-            else
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
         }
 
         public ActionResult LoggUt()

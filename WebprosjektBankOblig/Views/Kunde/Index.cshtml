@@ -1,58 +1,59 @@
 ﻿@model IEnumerable<WebprosjektBankOblig.Models.Kunde>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Kunder";
 }
 
-<h2>Index</h2>
+<div class="container text-center" style="padding:60px;">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Autentisering.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Personnummer)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Navn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Adresse)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tlf)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Autentisering.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Personnummer)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Navn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Adresse)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tlf)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Konto Oversikt", "KontoOversikt", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    <h2>Kunder
+        <span class="pull-right">
+            @Html.ActionLink("Opprett Kunde", "Create", new { }, new { @class = "btn btn-default" })
+        </span>
+    </h2>
+    <table class="table text-left">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Personnummer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Navn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adresse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tlf)
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Personnummer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Navn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adresse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tlf)
+                </td>
+                <td class="text-right">
+                    @Html.ActionLink("Detaljer", "Details", new { id = item.Id }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Konto Oversikt", "KontoOversikt", new { id = item.Id }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Endre", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                    @Html.ActionLink("Slett", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+</div>

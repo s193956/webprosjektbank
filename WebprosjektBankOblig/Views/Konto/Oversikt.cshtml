@@ -6,17 +6,24 @@
 
 <div class="container">
 
-    <h2>Velkommen</h2>
-
+    <h2>Velkommen
     @if (Session["Loggetfullenavn"] != null)
     {
-        <p>Velkommen @Session["Loggetfullenavn"].ToString()</p>
+        <span>      @Session["Loggetfullenavn"].ToString()</span>
     }
+        <span class="pull-right">@Html.ActionLink("Lag ny konto", "Create", "Konto", new { @class = "btn btn-default" }) </span>
+    
+    </h2>
+
+    
+    
 
     <table class="table">
-        @Html.ActionLink("Lag ny konto", "Create", "Konto", new { @class = "btn btn-default" }) 
+        
         <tr>
-            <th></th>
+            <th>
+                Konto
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.kontonr)
             </th>
@@ -38,13 +45,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.saldo)
                 </td>
-                <td>
+                <td class="text-right">
                     @Html.ActionLink("Ny Betaling", "Registrer", "Betaling", new { id = item.Id }, new { @class = "btn btn-default" }) |
                     @Html.ActionLink("Betalingsoverssikt", "Index", "Betaling", new { id = item.Id }, new { @class = "btn btn-success" }) |
                     @Html.ActionLink("Utførte betalinger", "Utforte", "Betaling", new { id = item.Id }, new { @class = "btn btn-danger" }) |
                     @if (Session["admin"] != null)
                     {
-                        @Html.ActionLink("Slett konto", "Delete", "Konto", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Slett konto", "Delete", "Konto", new { id = item.Id }, new { @class = "btn btn-warning" })
                     }
                 </td>
             </tr>

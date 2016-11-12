@@ -3,56 +3,43 @@
 @{
     ViewBag.Title = "Details";
 }
+<div class="container text-center" style="padding:60px;">
 
-<h2>Details</h2>
 
-<div>
-    <h4>Kunde</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Autentisering.Id)
-        </dt>
+    <h2>@Html.DisplayFor(model => model.Navn)</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.Autentisering.Id)
-        </dd>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Personnummer)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Personnummer)
-        </dt>
+            <dd class="text-right">
+                @Html.DisplayFor(model => model.Personnummer)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Personnummer)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Adresse)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Navn)
-        </dt>
+            <dd class="text-right">
+                @Html.DisplayFor(model => model.Adresse)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Navn)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tlf)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Adresse)
-        </dt>
+            <dd class="text-right">
+                @Html.DisplayFor(model => model.Tlf)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Adresse)
-        </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Endre", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) |
+        @Html.ActionLink("Tilbake", "Index", new { }, new { @class = "btn btn-default" })
+    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Tlf)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tlf)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -57,6 +57,9 @@ namespace WebprosjektBankOblig.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Kontoer = kunde.Kontoer.Count();
+
             return View(kunde);
         }
 
