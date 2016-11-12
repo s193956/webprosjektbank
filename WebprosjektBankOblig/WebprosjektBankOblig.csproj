@@ -226,6 +226,8 @@
     <Content Include="Views\Kunde\Index.cshtml" />
     <Content Include="Views\LoggInn\Admin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Konto\Create.cshtml" />
+    <Content Include="Views\Konto\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

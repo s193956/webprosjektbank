@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebprosjektBankOblig.DAL;
+using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.Controllers
 {
@@ -24,10 +26,11 @@ namespace WebprosjektBankOblig.Controllers
             {
                 var db = new BankDbContext();
 
-                var kontoer = db.Kontoer.Where(x => x.Kunde.Personnummer.Equals(personnummer));
+                var kontoer = db.Kontoer.Where(x => x.Kunde.Personnummer.Equals(personnummer) && !x.slettet);
 
                 return View(kontoer.ToList());
-            }else if (admin)
+            }
+            else if (admin)
             {
                 var db = new BankDbContext();
 
@@ -35,11 +38,11 @@ namespace WebprosjektBankOblig.Controllers
                 {
                     var kontoer = db.Kontoer;
 
-                    return View(kontoer.Where(x => x.Kunde.Id == kundeId.Value).ToList());
+                    return View(kontoer.Where(x => x.Kunde.Id == kundeId.Value && !x.slettet).ToList());
                 }
                 else
                 {
-                    var kontoer = db.Kontoer;
+                    var kontoer = db.Kontoer.Where(x => !x.slettet);
 
                     return View(kontoer.ToList());
                 }
@@ -49,5 +52,65 @@ namespace WebprosjektBankOblig.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
+
+
+        private BankDbContext db = new BankDbContext();
+
+        // GET: Kontoes/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Kontoes/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,kontotype,kontonr,saldo")] Konto konto)
+        {
+            if (ModelState.IsValid)
+            {
+                var personnummer = (string)Session["Personnummer"];
+
+                var kunde = db.Kunder.FirstOrDefault(x => x.Personnummer == personnummer);
+
+                konto.Kunde = kunde;
+
+                db.Kontoer.Add(konto);
+                db.SaveChanges();
+                return RedirectToAction("Oversikt");
+            }
+
+            return View(konto);
+        }
+
+        // GET: Kontoes/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Konto konto = db.Kontoer.Find(id);
+            if (konto == null)
+            {
+                return HttpNotFound();
+            }
+            return View(konto);
+        }
+
+        // POST: Kontoes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Konto konto = db.Kontoer.Find(id);
+            konto.slettet = true;
+            db.SaveChanges();
+            return RedirectToAction("Oversikt");
+        }
+
+
     }
 }

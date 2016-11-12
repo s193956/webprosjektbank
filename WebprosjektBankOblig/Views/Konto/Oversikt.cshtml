@@ -14,6 +14,7 @@
     }
 
     <table class="table">
+        @Html.ActionLink("Lag ny konto", "Create", "Konto", new { @class = "btn btn-default" }) 
         <tr>
             <th></th>
             <th>
@@ -40,7 +41,11 @@
                 <td>
                     @Html.ActionLink("Ny Betaling", "Registrer", "Betaling", new { id = item.Id }, new { @class = "btn btn-default" }) |
                     @Html.ActionLink("Betalingsoverssikt", "Index", "Betaling", new { id = item.Id }, new { @class = "btn btn-success" }) |
-                    @Html.ActionLink("Utførte betalinger", "Utforte", "Betaling", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Utførte betalinger", "Utforte", "Betaling", new { id = item.Id }, new { @class = "btn btn-danger" }) |
+                    @if (Session["admin"] != null)
+                    {
+                        @Html.ActionLink("Slett konto", "Delete", "Konto", new { id = item.Id }, new { @class = "btn btn-danger" })
+                    }
                 </td>
             </tr>
         }

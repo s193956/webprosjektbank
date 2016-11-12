@@ -20,6 +20,8 @@ namespace WebprosjektBankOblig.Models
 
         [Display(Name = "Disponibelt beløp:")]
         public string saldo { get; set; }
+        
+        public bool slettet { get; set; }
 
         public virtual Kunde Kunde { get; set; }
         public virtual ICollection<Betaling> Betalinger { get; set; }
