@@ -33,6 +33,11 @@ namespace WebprosjektBankOblig.BLL
             return kunde != null;
         }
 
+        public Kunde hentKunde(int id)
+        {
+            return _repository.hentKunde(id);
+        }
+
         public bool validerEngangspassord(string pn, int ep)
         {
             //Finn KundeAutentisering knyttet til kunden
