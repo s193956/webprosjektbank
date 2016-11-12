@@ -191,6 +191,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BetalingController.cs" />
+    <Compile Include="Controllers\KontoController.cs" />
+    <Compile Include="Controllers\KundeController.cs" />
     <Compile Include="Controllers\LoggInnController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -206,7 +208,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\LoggInn\BliKunde.cshtml" />
-    <Content Include="Views\LoggInn\EtterLogginn.cshtml" />
     <Content Include="Views\LoggInn\Index.cshtml" />
     <Content Include="Views\LoggInn\LoggInn.cshtml" />
     <Content Include="Views\LoggInn\OmOss.cshtml" />
@@ -217,8 +218,14 @@
     <Content Include="Views\Betaling\Index.cshtml" />
     <Content Include="Views\Betaling\Utforte.cshtml" />
     <Content Include="Views\LoggInn\BankIdBrikke.cshtml" />
+    <Content Include="Views\Konto\Oversikt.cshtml" />
+    <Content Include="Views\Kunde\Create.cshtml" />
+    <Content Include="Views\Kunde\Delete.cshtml" />
+    <Content Include="Views\Kunde\Details.cshtml" />
+    <Content Include="Views\Kunde\Edit.cshtml" />
+    <Content Include="Views\Kunde\Index.cshtml" />
+    <Content Include="Views\LoggInn\Admin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Kunder2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

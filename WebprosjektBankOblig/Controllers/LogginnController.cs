@@ -47,6 +47,29 @@ namespace WebprosjektBankOblig.Controllers
             return View();
         }
 
+        public ActionResult Admin()
+        {
+            var adminBLL = new AdminBLL();
+
+            var adminbruker = adminBLL.lagAdminBruker();
+
+            return View(adminbruker);
+        }
+
+        [HttpGet]
+        public JsonResult AdminLogin(string login, string passord)
+        {
+            var adminBLL = new AdminBLL();
+
+            if (adminBLL.validerPassord(login, passord))
+            {
+                Session["admin"] = true;
+                return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult EtterLogginn()
         {
             var personnummer = (string)Session["Personnummer"];
@@ -155,5 +178,6 @@ namespace WebprosjektBankOblig.Controllers
         {
             return Json(_authBLL.hentNesteEngangspassord(pnummer), JsonRequestBehavior.AllowGet);
         }
+
     }
 }

@@ -1,0 +1,68 @@
+﻿@model WebprosjektBankOblig.Models.AdminBruker
+
+@{
+    ViewBag.Title = "Admin";
+}
+
+<div class="container text-center" style="padding:30px;">
+
+
+    @if (Session["admin"] == null)
+    {
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>Administrator side</h1>
+                <h2>Vennligst logg inn</h2>
+            </div>
+        </div>
+        <div class="alert alert-danger text-center" role="alert">
+            <strong>Adminbruker: </strong> @Model.login <strong>Passord: </strong> 123
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-5 col-md-offset-4 ">
+                <div style="height:300px;padding-top:50px;">
+                    <div>
+                        <div class="form-group">
+                            <input id="login" type="text" class="form-control" placeholder="login">
+                        </div>
+                        <div class="form-group">
+                            <input id="passord" type="password" class="form-control" placeholder="passord">
+                        </div>
+                        <div class="form-group">
+                            <button id="loginBtn" class="btn btn-default">Login</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <h1>Administrator side</h1>
+        <span class="btn-group-lg">
+            <a class="btn btn-default" href="/Admin/Kunder">Kunder</a>
+            <a class="btn btn-default" href="/Admin/Kontoer">Kontoer</a>
+            <a class="btn btn-default" href="/Admin/Betalinger">Betalinger</a>
+        </span>
+    }
+</div>
+<script>
+
+    $("#loginBtn").on("click", function () {
+        var login = $("#login").val();
+        var passord = $("#passord").val();
+
+        Login(login, passord, function (result) {
+            location = "/Admin/Index"
+        });
+    });
+
+
+    Login = function (login, passord, done) {
+        $.getJSON("/Admin/Login", { login: login, passord: passord }, function (data) { done(data); });
+    }
+</script>
+

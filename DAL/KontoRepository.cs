@@ -21,6 +21,12 @@ namespace WebprosjektBankOblig.DAL
             return db.Kontoer.ToList();
         }
 
+        public List<Konto> hentKontoer(int KundeId)
+        {
+            return db.Kontoer.Where(x => x.Kunde.Id == KundeId).ToList();
+        }
+
+
         public Konto hentKonto(string kontonr)
         {
             return db.Kontoer.FirstOrDefault(x => x.kontonr == kontonr);
