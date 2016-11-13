@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
@@ -223,7 +225,9 @@ namespace WebprosjektBankOblig.BLL
                     Navn = "Frank Frankenstein",
                     Adresse = "Osloveien 2",
                     Tlf = "87654321",
-                    Poststed = nyPoststed
+                    Poststed = nyPoststed,
+                    Passord = "123",
+                    GjentaPassord = "123"
                 };
 
                 nyAutentisering.Kunde = nyKunde;
@@ -290,7 +294,7 @@ namespace WebprosjektBankOblig.BLL
                     {
                         frakonto = konto.kontonr,
                         tilkonto = r.Next(1429, 9894).ToString() + "." + r.Next(12, 98).ToString() + "." + r.Next(31928, 98596).ToString(),
-                        dato = dato.ToString(),
+                        dato = dato,
                         beløp = r.Next(39, 94578).ToString(),
                         melding = "",
                         utført = true,
@@ -298,11 +302,10 @@ namespace WebprosjektBankOblig.BLL
                     };
                     db.Betalinger.Add(nyBetaling);
                 }
-
-                db.SaveChanges();
-
+                
+                    db.SaveChanges();
+                
             }
         }
-        
     }
 }
