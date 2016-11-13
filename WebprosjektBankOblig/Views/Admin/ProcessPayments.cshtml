@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Prosseser";
+}
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3>Prosseser dagens betalinger</h3>
+                <div class="jumbotron k text-center" style="height:300px;">
+                    <a id="ProcesseBtn" class="btn btn-large btn-primary btn-danger">Prosseser</a>
+                    <div>
+                        <img id="loadImg" src="~/Content/download.gif" style="display:none">
+                        <label id="complete" class="alert alert-success" style="display:none;margin-top:30px;">Vellyket</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("#ProcesseBtn").on("click", function () {
+
+        $("#loadImg").show();
+        $("#complete").hide();
+
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Process",
+            data: { },
+            success: function () {
+                $("#loadImg").hide();
+                $("#complete").show();
+            }
+        });
+    });
+</script>
+

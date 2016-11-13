@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using WebprosjektBankOblig.DAL;
 using WebprosjektBankOblig.Models;
@@ -110,6 +111,48 @@ namespace WebprosjektBankOblig.BLL
 
             db.SaveChanges();
 
+        }
+
+        public void processTodaysPayments()
+        {
+            Thread.Sleep(2350);
+
+            var db = new BankDbContext();
+           
+            var betalinger = db.Betalinger.Where(x => !x.behandlet && 
+                x.dato == DateTime.Today);
+
+            foreach(var betaling in betalinger)
+            {
+                // Betalingen skal gjennomføres nå
+                var frakonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.frakonto);
+
+                // Det var for lite penger på konto, marker betaling som feilet
+                if (frakonto.saldo < betaling.beløp)
+                {
+                    betaling.behandlet = true;
+                    betaling.utført = false;
+                    db.SaveChanges();
+                    return;
+                }
+
+                if (db.Kontoer.Any(x => x.kontonr == betaling.tilkonto))
+                {
+                    var tilkonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.tilkonto);
+
+                    tilkonto.saldo += betaling.beløp;
+                    frakonto.saldo -= betaling.beløp;
+                }
+                else
+                {
+                    frakonto.saldo -= betaling.beløp;
+                }
+
+                betaling.utført = true;
+                betaling.behandlet = true;
+
+                db.SaveChanges();
+            }
         }
 
     }
