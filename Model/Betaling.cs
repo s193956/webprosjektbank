@@ -26,7 +26,7 @@ namespace WebprosjektBankOblig.Models
 
         [Display(Name = "Beløp:")]
         [Required(ErrorMessage = "Beløp må oppgis")]
-        public string beløp { get; set; }
+        public decimal beløp { get; set; }
 
         [Display(Name = "Melding/ KID:")]
         public string melding { get; set; }

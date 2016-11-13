@@ -240,7 +240,7 @@ namespace WebprosjektBankOblig.BLL
                 {
                     kontotype = "Brukskonto",
                     kontonr = "4325.54.45342",
-                    saldo = "32048,54",
+                    saldo = 32048.54m,
                     Kunde = nyKunde
                 };
 
@@ -248,7 +248,7 @@ namespace WebprosjektBankOblig.BLL
                 {
                     kontotype = "Sparekonto",
                     kontonr = "4325.54.45237",
-                    saldo = "490394,98",
+                    saldo = 490394,
                     Kunde = nyKunde
                 };
 
@@ -256,7 +256,7 @@ namespace WebprosjektBankOblig.BLL
                 {
                     kontotype = "Aksjekonto",
                     kontonr = "4325.54.45543",
-                    saldo = "4,05",
+                    saldo = 4.05m,
                     Kunde = nyKunde
                 };
 
@@ -295,7 +295,7 @@ namespace WebprosjektBankOblig.BLL
                         frakonto = konto.kontonr,
                         tilkonto = r.Next(1429, 9894).ToString() + "." + r.Next(12, 98).ToString() + "." + r.Next(31928, 98596).ToString(),
                         dato = dato,
-                        beløp = r.Next(39, 94578).ToString(),
+                        beløp = r.Next(39, 94578),
                         melding = "",
                         utført = true,
                         Konto = konto

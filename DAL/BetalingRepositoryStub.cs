@@ -20,7 +20,7 @@ namespace WebprosjektBankOblig.DAL
                 frakonto = "",
                 tilkonto = "",
                 dato = DateTime.Now,
-                beløp = "",
+                beløp = 0,
                 melding = "",
                 utført = true
 
@@ -50,7 +50,7 @@ namespace WebprosjektBankOblig.DAL
                 frakonto = "",
                 tilkonto = "",
                 dato = DateTime.Now,
-                beløp = "",
+                beløp = 0,
                 melding = "",
                 utført = true
 
@@ -79,7 +79,7 @@ namespace WebprosjektBankOblig.DAL
                 frakonto = "",
                 tilkonto = "",
                 dato = DateTime.Now,
-                beløp = "",
+                beløp = 0,
                 melding = "",
                 utført = true
 
