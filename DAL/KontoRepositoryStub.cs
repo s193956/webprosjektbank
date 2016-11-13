@@ -34,7 +34,7 @@ namespace WebprosjektBankOblig.DAL
                 Id = 1,
                 kontotype = "",
                 kontonr = "",
-                saldo = "",
+                saldo = 0,
 
             };
             kontoListe.Add(konto);

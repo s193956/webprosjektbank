@@ -240,7 +240,7 @@ namespace WebprosjektBankOblig.BLL
                 {
                     kontotype = "Brukskonto",
                     kontonr = "4325.54.45342",
-                    saldo = "32048,54",
+                    saldo = 32048.54m,
                     Kunde = nyKunde
                 };
 
@@ -248,7 +248,7 @@ namespace WebprosjektBankOblig.BLL
                 {
                     kontotype = "Sparekonto",
                     kontonr = "4325.54.45237",
-                    saldo = "490394,98",
+                    saldo = 490394,
                     Kunde = nyKunde
                 };
 
@@ -256,7 +256,7 @@ namespace WebprosjektBankOblig.BLL
                 {
                     kontotype = "Aksjekonto",
                     kontonr = "4325.54.45543",
-                    saldo = "4,05",
+                    saldo = 4.05m,
                     Kunde = nyKunde
                 };
 

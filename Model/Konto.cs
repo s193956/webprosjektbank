@@ -19,7 +19,7 @@ namespace WebprosjektBankOblig.Models
         public string kontonr { get; set; }
 
         [Display(Name = "Disponibelt beløp:")]
-        public string saldo { get; set; }
+        public decimal saldo { get; set; }
         
         public bool slettet { get; set; }
 

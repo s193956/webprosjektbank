@@ -78,6 +78,8 @@ namespace WebprosjektBankOblig.BLL
             if (!internalTransaction)
                 return;
 
+            var frakonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.frakonto);
+
 
 
         }
