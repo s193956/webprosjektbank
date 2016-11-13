@@ -45,7 +45,7 @@ namespace WebprosjektBankOblig.Controllers
             return RedirectToAction("Oversikt", "Konto");
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Detaljer(int? id)
         {
             if (id == null)
             {
@@ -62,7 +62,7 @@ namespace WebprosjektBankOblig.Controllers
             return View(kunde);
         }
 
-        public ActionResult Create()
+        public ActionResult Registrer()
         {
             ViewBag.Id = new SelectList(db.Autentiseringer, "Id", "Id");
             return View();
@@ -70,7 +70,7 @@ namespace WebprosjektBankOblig.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf,Passord,GjentaPassord")] Kunde kunde)
+        public ActionResult Registrer([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf,Passord,GjentaPassord")] Kunde kunde)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace WebprosjektBankOblig.Controllers
 
         const string displaypass = "--------------";
 
-        public ActionResult Edit(int? id)
+        public ActionResult Endre(int? id)
         {
             if (id == null)
             {
@@ -125,7 +125,7 @@ namespace WebprosjektBankOblig.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf,Passord,GjentaPassord")] Kunde kunde)
+        public ActionResult Endre([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf,Passord,GjentaPassord")] Kunde kunde)
         {
             if (ModelState.IsValid)
             {
@@ -146,7 +146,6 @@ namespace WebprosjektBankOblig.Controllers
             return View(kunde);
         }
 
-        // GET: Kunde/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
