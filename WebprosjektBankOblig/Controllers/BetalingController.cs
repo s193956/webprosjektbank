@@ -30,8 +30,7 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Index(int? id)
         {
-            //Dersom kunden skriver /Betaling/en eller annen action så vil han/hun
-            //bli returnert til hovedsiden hvis de ikke er pålogget
+
             if (Session["loggedInn"] == null)
             {
                 return RedirectToAction("Index", "LoggInn");
@@ -45,8 +44,7 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult Utforte(int? id)
         {
-            //Dersom kunden skriver /Betaling/en eller annen action så vil han/hun
-            //bli returnert til hovedsiden hvis de ikke er pålogget
+
             if (Session["loggedInn"] == null)
             {
                 return RedirectToAction("Index", "LoggInn");
