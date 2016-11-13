@@ -36,7 +36,7 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult BliKunde()
         {
-            return RedirectToAction("Create", "Kunde");
+            return RedirectToAction("Registrer", "Kunde");
         }
 
         public ActionResult OmOss()
