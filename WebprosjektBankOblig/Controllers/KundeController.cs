@@ -91,7 +91,8 @@ namespace WebprosjektBankOblig.Controllers
                 if (Session["admin"] != null)
                 {
                     return RedirectToAction("Index");
-                }else
+                }
+                else
                 {
                     return RedirectToAction("LoggInn", "LoggInn", new { kundeId = kunde.Id });
                 }
@@ -100,6 +101,8 @@ namespace WebprosjektBankOblig.Controllers
             ViewBag.Id = new SelectList(db.Autentiseringer, "Id", "Id", kunde.Id);
             return View(kunde);
         }
+
+        const string displaypass = "--------------";
 
         public ActionResult Edit(int? id)
         {
@@ -112,11 +115,14 @@ namespace WebprosjektBankOblig.Controllers
             {
                 return HttpNotFound();
             }
+
+            kunde.Passord = displaypass;
+            kunde.GjentaPassord = displaypass;
+
             ViewBag.Id = new SelectList(db.Autentiseringer, "Id", "Id", kunde.Id);
             return View(kunde);
         }
 
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf,Passord,GjentaPassord")] Kunde kunde)
@@ -125,11 +131,14 @@ namespace WebprosjektBankOblig.Controllers
             {
                 db.Entry(kunde).State = EntityState.Modified;
 
-                var auth = db.Autentiseringer.Find(kunde.Id);
-                auth.PassordHash = AuthBLL.Hash(kunde.Passord, auth.PassordSalt);
+                if (kunde.Passord != displaypass)
+                {
+                    var auth = db.Autentiseringer.Find(kunde.Id);
+                    auth.PassordHash = AuthBLL.Hash(kunde.Passord, auth.PassordSalt);
 
-                db.Entry(auth).State = EntityState.Modified;
-                
+                    db.Entry(auth).State = EntityState.Modified;
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

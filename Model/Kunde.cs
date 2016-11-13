@@ -14,6 +14,7 @@ namespace WebprosjektBankOblig.Models
 
         [Display(Name = "Personnummer:")]
         [Required(ErrorMessage = "Personnummer må oppgis")]
+        [RegularExpression(@"[0-9]{11}", ErrorMessage = "Personnummer må være 11 siffer")]
         public string Personnummer { get; set; }
 
         [Display(Name = "Navn:")]
@@ -26,6 +27,7 @@ namespace WebprosjektBankOblig.Models
 
         [Display(Name = "Telefonnummer:")]
         [Required(ErrorMessage = "Telefonnummer må oppgis")]
+        [RegularExpression(@"[0-9]{8}", ErrorMessage = "Mobil må være 8 siffer")]
         public string Tlf { get; set; }
 
         public bool slettet { get; set; }
@@ -35,10 +37,14 @@ namespace WebprosjektBankOblig.Models
         public virtual ICollection<Konto> Kontoer { get; set; }
         
         [NotMapped]
+        [Required]
+        [DataType(DataType.Password)]
         [Display(Name = "Passord:")]
         public string Passord { get; set; }
 
         [NotMapped]
+        [DataType(DataType.Password)]
+        [Compare("Passord", ErrorMessage = "Passordene må stemme")]
         [Display(Name = "Gjenta passord:")]
         public string GjentaPassord { get; set; }
     }
