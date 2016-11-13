@@ -44,7 +44,7 @@ namespace WebprosjektBankOblig.Controllers
             return RedirectToAction("Oversikt", "Konto");
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Detaljer(int? id)
         {
             if (id == null)
             {
@@ -61,7 +61,7 @@ namespace WebprosjektBankOblig.Controllers
             return View(kunde);
         }
 
-        public ActionResult Create()
+        public ActionResult Registrer()
         {
             ViewBag.Id = new SelectList(db.Autentiseringer, "Id", "Id");
             return View();
@@ -69,7 +69,7 @@ namespace WebprosjektBankOblig.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf")] Kunde kunde)
+        public ActionResult Registrer([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf")] Kunde kunde)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace WebprosjektBankOblig.Controllers
             return View(kunde);
         }
 
-        public ActionResult Edit(int? id)
+        public ActionResult Endre(int? id)
         {
             if (id == null)
             {
@@ -100,7 +100,7 @@ namespace WebprosjektBankOblig.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf")] Kunde kunde)
+        public ActionResult Endre([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf")] Kunde kunde)
         {
             if (ModelState.IsValid)
             {

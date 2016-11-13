@@ -7,7 +7,7 @@
 <div class="container text-center" style="padding:60px;">
     <h2>Kunder
         <span class="pull-right">
-            @Html.ActionLink("Opprett Kunde", "Create", new { }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Opprett Kunde", "Registrer", new { }, new { @class = "btn btn-default" })
         </span>
     </h2>
     <table class="table text-left">
@@ -43,9 +43,9 @@
                     @Html.DisplayFor(modelItem => item.Tlf)
                 </td>
                 <td class="text-right">
-                    @Html.ActionLink("Detaljer", "Details", new { id = item.Id }, new { @class = "btn btn-default" }) |
+                    @Html.ActionLink("Detaljer", "Detaljer", new { id = item.Id }, new { @class = "btn btn-default" }) |
                     @Html.ActionLink("Konto Oversikt", "KontoOversikt", new { id = item.Id }, new { @class = "btn btn-success" }) |
-                    @Html.ActionLink("Endre", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |
+                    @Html.ActionLink("Endre", "Endre", new { id = item.Id }, new { @class = "btn btn-warning" }) |
                     <button class="DeleteBtn btn btn-danger" data-id="@item.Id">Slett</button>
                 </td>
             </tr>
