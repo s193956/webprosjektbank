@@ -56,14 +56,14 @@ namespace WebprosjektBankOblig.Controllers
 
         private BankDbContext db = new BankDbContext();
 
-        public ActionResult Create()
+        public ActionResult Registrer()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,kontotype,kontonr,saldo")] Konto konto)
+        public ActionResult Registrer([Bind(Include = "Id,kontotype,kontonr,saldo")] Konto konto)
         {
             if (ModelState.IsValid)
             {
