@@ -87,6 +87,7 @@ namespace WebprosjektBankOblig.BLL
             // Det var for lite penger på konto, marker betaling som feilet
             if (frakonto.saldo < betaling.beløp)
             {
+                betaling.behandlet = true;
                 betaling.utført = false;
                 db.SaveChanges();
                 return;
@@ -105,6 +106,7 @@ namespace WebprosjektBankOblig.BLL
             }
 
             betaling.utført = true;
+            betaling.behandlet = true;
 
             db.SaveChanges();
 

@@ -50,9 +50,9 @@
                     @Html.DisplayFor(modelItem => item.melding)
                 </td>
                 <td>
-                    @if(item.utført.HasValue && item.utført.Value == false)
+                    @if(!item.utført)
                     {
-                        <span class="text-warning">Ikke Utført</span>
+                        <span class="text-danger"><strong>Ikke Utført</strong></span>
                     }
                 </td>
             </tr>

@@ -12,21 +12,21 @@ namespace WebprosjektBankOblig.DAL
     {
         private BankDbContext db = new BankDbContext();
 
-        public List<Betaling> hentBetalinger(string pn, int id, bool? utført)
+        public List<Betaling> hentBetalinger(string pn, int id, bool? behandlet)
         {
             return (from b in db.Betalinger
                     where b.Konto.Kunde.Personnummer == pn &&
                     b.Konto.Id == id &&
-                    utført.Value ? b.utført.HasValue : true
+                    behandlet.Value ? b.behandlet == behandlet : true
                     orderby b.dato descending
                     select b).ToList();
         }
 
-        public List<Betaling> hentBetalinger(string pn, bool? utført)
+        public List<Betaling> hentBetalinger(string pn, bool? behandlet)
         {
             return (from b in db.Betalinger
                     where b.Konto.Kunde.Personnummer == pn &&
-                    utført.Value ? b.utført == utført : true
+                    behandlet.Value ? b.utført == behandlet : true
                     orderby b.dato descending
                     select b).ToList();
         }

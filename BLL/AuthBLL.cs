@@ -297,6 +297,7 @@ namespace WebprosjektBankOblig.BLL
                         dato = dato,
                         beløp = r.Next(39, 94578),
                         melding = "",
+                        behandlet = true,
                         utført = true,
                         Konto = konto
                     };
