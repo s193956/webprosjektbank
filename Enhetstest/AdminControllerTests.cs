@@ -35,7 +35,7 @@ namespace WebprosjektBankOblig.Tests
             forventetResultat.Add(kunde);
 
             // Act
-            var actionResult = (ViewResult)controller.Betalinger();
+            var actionResult = (ViewResult)controller.Kunder();
             var resultat = (List<Kunde>)actionResult.Model;
             // Assert
 
