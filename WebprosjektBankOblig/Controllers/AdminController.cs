@@ -55,6 +55,11 @@ namespace WebprosjektBankOblig.Controllers
             return View(logg);
         }
 
+        public ActionResult ProcessPayments()
+        {
+            return View();
+        }
+
 
         [HttpGet]
         public JsonResult Login(string login, string passord)
@@ -65,6 +70,16 @@ namespace WebprosjektBankOblig.Controllers
             }
             
             return Json(new { Success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult Process()
+        {
+            var bet = new BetalingBLL();
+
+            bet.processTodaysPayments();
+
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }

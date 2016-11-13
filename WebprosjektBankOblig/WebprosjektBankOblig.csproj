@@ -151,6 +151,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\credit-card-processing-definitions.jpg" />
+    <Content Include="Content\download.gif" />
     <Content Include="Content\e-commerce-security-fotolia.jpg" />
     <Content Include="Content\imageedit_1_8477741602.png" />
     <Content Include="Content\logo.ico" />
@@ -227,6 +228,7 @@
     <Content Include="Views\Konto\Registrer.cshtml" />
     <Content Include="Views\Kunde\Registrer.cshtml" />
     <Content Include="Views\Admin\Logg.cshtml" />
+    <Content Include="Views\Admin\ProcessPayments.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
