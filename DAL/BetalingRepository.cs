@@ -17,7 +17,7 @@ namespace WebprosjektBankOblig.DAL
             return (from b in db.Betalinger
                     where b.Konto.Kunde.Personnummer == pn &&
                     b.Konto.Id == id &&
-                    utført.Value ? b.utført == utført : true
+                    utført.Value ? b.utført.HasValue : true
                     orderby b.dato descending
                     select b).ToList();
         }

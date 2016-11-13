@@ -80,6 +80,14 @@ namespace WebprosjektBankOblig.BLL
 
             var frakonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.frakonto);
 
+            // det var for lite penger på konto, marker betaling som failed
+            if(frakonto.saldo < betaling.beløp)
+            {
+                betaling.utført = false;
+                db.SaveChanges();
+                return;
+            }
+
 
 
         }

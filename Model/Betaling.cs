@@ -31,7 +31,7 @@ namespace WebprosjektBankOblig.Models
         [Display(Name = "Melding/ KID:")]
         public string melding { get; set; }
 
-        public bool utført { get; set; }
+        public bool? utført { get; set; }
 
         public virtual Konto Konto { get; set; }
     }
