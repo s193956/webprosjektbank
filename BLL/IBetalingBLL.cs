@@ -5,7 +5,7 @@ namespace WebprosjektBankOblig.BLL
 {
     public interface IBetalingBLL
     {
-        List<Betaling> hentBetalinger(string pn, int? id, bool? utført);
+        List<Betaling> hentBetalinger(string pn, int? id, bool? behandlet);
         void registrerBetaling(Betaling betaling);
         Betaling hentBetaling(int id);
 

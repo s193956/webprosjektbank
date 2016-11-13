@@ -24,15 +24,15 @@ namespace WebprosjektBankOblig.BLL
             _repository = stub;
         }
 
-        public List<Betaling> hentBetalinger(string pn, int? id, bool? utført)
+        public List<Betaling> hentBetalinger(string pn, int? id, bool? behandlet)
         {
             if (id.HasValue)
             {
-                return _repository.hentBetalinger(pn, id.Value, utført);
+                return _repository.hentBetalinger(pn, id.Value, behandlet);
             }
             else
             {
-                return _repository.hentBetalinger(pn, utført);
+                return _repository.hentBetalinger(pn, behandlet);
             }
         }
 

@@ -64,7 +64,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Legg Inn" class="btn btn-default" />
+                    <input type="submit" id="registerForm" value="Legg Inn" class="btn btn-default" />
                 </div>
             </div>
         </div>
@@ -75,3 +75,77 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 </div>
+
+@if (Session["admin"] == null)
+{
+     <!-- Modal -->
+    <div class="modal fade" id="nybetalingModal" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <h3>BankID</h3>
+                    <div class="jumbotron k">
+                        <div id="status" style="height:50px;"></div>
+                        <div class="form-group form-inline text-center" id="engangsView">
+                            <label for="number">Engangspassord:</label>
+                            <input type="number" class="form-control" id="engangspassord">
+                            <button class="btn btn-default" onclick="validateEngangs()">-></button>
+                        </div>
+                        <div class="form-group form-inline text-center" style="display:none" id="passordView">
+                            <label for="number">Personlige Password:</label>
+                            <input type="password" class="form-control" id="passord">
+                            <button class="btn btn-default" onclick="validatePassord()">-></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var $nope = true;
+
+        $("#registerForm").closest("form").on("submit", function (e) {
+            if ($nope) {
+                e.preventDefault();
+                $("#nybetalingModal").modal("show");
+            }
+        });
+
+        function validateEngangs() {
+            var $engangspassord = $("#engangspassord").val();
+            console.log("validate", $engangspassord);
+            $.getJSON("/LoggInn/Engangs", { engangspassord: $engangspassord },
+                function (data) {
+                    if (data === true) {
+                        // Vis passord view
+                        $("#engangsView").hide(200);
+                        $("#passordView").show(200);
+                        $("#status").empty();
+                    } else {
+                        $("#status").empty();
+                        $("#status").append("<span class=\"alert alert-danger span5\">Feil engangskode, vennligst prøv igjen</span>");
+                    }
+                }
+            );
+        }
+        function validatePassord() {
+            var $passord = $("#passord").val();
+            console.log("validate", $passord);
+            $.getJSON("/LoggInn/Passord", { passord: $passord },
+                function (data) {
+                    if (data === true) {
+                        // Redirect til oversikt view
+                        $("#status").empty();
+                        console.log("Login success!");
+                        $nope = false;
+                        $("#registerForm").closest("form").submit();
+                    } else {
+                        $("#status").empty();
+                        $("#status").append("<span class=\"alert alert-danger span5\">Feil passord, vennligst prøv igjen</span>");
+                    }
+                }
+            );
+        }
+    </script>
+}

@@ -14,7 +14,7 @@ namespace WebprosjektBankOblig.DAL
 
         public List<Betaling> hentBetalinger(string pn, int id, bool? behandlet)
         {
-            return db.Kontoer.Find(id).Betalinger.Where(x => behandlet.Value ? x.behandlet == behandlet : true).OrderByDescending(x => x.dato).ToList();
+            return db.Kontoer.Find(id).Betalinger.Where(x => behandlet.HasValue ? x.behandlet == behandlet : true).OrderByDescending(x => x.dato).ToList();
             /*
             return (from b in db.Betalinger
                     where b.Konto.Kunde.Personnummer == pn &&
