@@ -95,7 +95,7 @@ namespace WebprosjektBankOblig.Controllers
             {
                 _betBLL.registrerBetaling(betaling);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Oversikt", "Konto");
             }
 
             var personnummer = (string)Session["Personnummer"];

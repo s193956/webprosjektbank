@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using WebprosjektBankOblig.DAL;
@@ -38,7 +39,7 @@ namespace WebprosjektBankOblig.BLL
         {
             _repository.lagreBetaling(betaling);
 
-            processPayment(betaling);
+            processPayment(betaling.Id);
         }
 
         public Betaling hentBetaling(int id)
@@ -51,7 +52,7 @@ namespace WebprosjektBankOblig.BLL
         {
             _repository.endreBetaling(betaling);
 
-            processPayment(betaling);
+            processPayment(betaling.Id);
         }
 
         public void slettBetaling(int id)
@@ -64,10 +65,12 @@ namespace WebprosjektBankOblig.BLL
             return _repository.hentBetalinger();
         }
 
-        private void processPayment(Betaling betaling)
+        private void processPayment(int Id)
         {
             var db = new BankDbContext();
-            
+
+            var betaling = db.Betalinger.Find(Id);
+
             // Skal ikke håndteres idag.
             if (betaling.dato != DateTime.Today)
                 return;
@@ -78,18 +81,34 @@ namespace WebprosjektBankOblig.BLL
             if (!internalTransaction)
                 return;
 
+            // Betalingen skal gjennomføres nå
             var frakonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.frakonto);
 
-            // det var for lite penger på konto, marker betaling som failed
-            if(frakonto.saldo < betaling.beløp)
+            // Det var for lite penger på konto, marker betaling som feilet
+            if (frakonto.saldo < betaling.beløp)
             {
                 betaling.utført = false;
                 db.SaveChanges();
                 return;
             }
 
+            if (internalTransaction)
+            {
+                var tilkonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.tilkonto);
 
+                tilkonto.saldo += betaling.beløp;
+                frakonto.saldo -= betaling.beløp;
+            }
+            else
+            {
+                frakonto.saldo -= betaling.beløp;
+            }
+
+            betaling.utført = true;
+
+            db.SaveChanges();
 
         }
+
     }
 }
