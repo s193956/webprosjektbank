@@ -50,7 +50,15 @@ namespace WebprosjektBankOblig.BLL
 
             var hashed = AuthBLL.Hash(p, admin.passordSalt);
 
-            return admin.passordHash.SequenceEqual(hashed);
+            bool success = admin.passordHash.SequenceEqual(hashed);
+
+            if (!success)
+            {
+                return false;
+            }else
+            {
+                return true;
+            }
         }
 
         public List<Kunde> hentAlleKunder()

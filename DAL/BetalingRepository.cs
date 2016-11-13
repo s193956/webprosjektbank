@@ -56,15 +56,31 @@ namespace WebprosjektBankOblig.DAL
             var fraKonto = db.Kontoer.FirstOrDefault(x => x.kontonr == betaling.frakonto);
 
             betaling.Konto = fraKonto;
-
-            db.SaveChanges();
+            
+            try
+            {
+                db.SaveChanges();
+                new LoggRepository().SkrivLogg(null, true, "Betaling lagret", betaling.Id);
+            }
+            catch
+            {
+                LoggRepository.SkrivLoggFil("Feil ved lagring av betaling");
+            }
         }
 
         public void endreBetaling(Betaling betaling)
         {
             db.Entry(betaling).State = EntityState.Modified;
 
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+                new LoggRepository().SkrivLogg(null, true, "Betaling endret", betaling.Id);
+            }
+            catch
+            {
+                LoggRepository.SkrivLoggFil("Feil ved endring av betaling");
+            }
         }
 
         public void slettBetaling(int id)
@@ -73,7 +89,15 @@ namespace WebprosjektBankOblig.DAL
 
             db.Betalinger.Remove(betaling);
 
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+                new LoggRepository().SkrivLogg(null, true, "Betaling slettet", betaling.Id);
+            }
+            catch
+            {
+                LoggRepository.SkrivLoggFil("Feil ved sletting av betaling");
+            }
         }
     }
 }

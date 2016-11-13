@@ -35,7 +35,14 @@ namespace WebprosjektBankOblig.DAL
             aut.PassordHash = auth.PassordHash;
             aut.PassordSalt = auth.PassordSalt;
             
-            db.SaveChanges();            
+            try{
+                db.SaveChanges();
+                new LoggRepository().SkrivLogg(null, true, "Autentisering endret", auth.Id);
+            }
+            catch
+            {
+                LoggRepository.SkrivLoggFil("Feil ved endring av autentisering");
+            }         
         }
         
         public AdminBruker hentAdmin(string login)

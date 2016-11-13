@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebprosjektBankOblig.BLL;
+using WebprosjektBankOblig.DAL;
 
 namespace WebprosjektBankOblig.Controllers
 {
@@ -45,19 +46,15 @@ namespace WebprosjektBankOblig.Controllers
             return View(kunder);
         }
 
-        public ActionResult Kontoer()
+        public ActionResult Logg()
         {
-            var kontoer = _kontBLL.hentKontoer();
+            var db = new BankDbContext();
 
-            return View(kontoer);
+            var logg = db.Logg.ToList();
+
+            return View(logg);
         }
 
-        public ActionResult Betalinger()
-        {
-            var betalinger = _betBLL.hentBetalinger();
-
-            return View(betalinger);
-        }
 
         [HttpGet]
         public JsonResult Login(string login, string passord)

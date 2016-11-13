@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using WebprosjektBankOblig.Models;
@@ -23,6 +24,11 @@ namespace WebprosjektBankOblig.DAL
             db.Logg.Add(entry);
 
             db.SaveChanges();
+        }
+
+        public static void SkrivLoggFil(string beskrivelse)
+        {
+            File.AppendAllText(AppDomain.CurrentDomain.GetData("DataDirectory").ToString(), beskrivelse + Environment.NewLine);
         }
     }
 }
