@@ -1,6 +1,7 @@
 Prosjektet er lastet opp på dotnet.cs.hioa.no/s198748/ObligWPB
-!VIKTIG!; For admin side, gå til localhost:port/Admin/Index, brukernavn og passord for test admin er oppgitt
-For testresultater vennligst se blablabla
+!VIKTIG!; For admin side, gå til localhost:port/Admin/Index, eller bare trykk på Admin i nav, brukernavn og passord for test admin er oppgitt
+For testresultater se https://docs.google.com/document/d/1oygnwxb0nlRMgC3GC2HIQDjhTMr4P-eYZCuIPq2AMNI/edit
+
 
 Forrige gang landet vi på en karakter unna toppkarakter fordi layouten vår var for simpel, vi tenkte på forskjellige måter på å forbedre layouten, vi er kjent med Titan, Toast og Base, alle sistnevnte er responsive CSS rammeverk, men vi bestemte oss får å bruke LESS4 siden det henger så bra sammen med Bootstrap. Vi lånte mye av koden herfra, https://github.com/less/less.js/ det er git source code repositorien til LESS4.
 
