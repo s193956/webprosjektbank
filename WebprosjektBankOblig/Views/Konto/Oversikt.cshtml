@@ -90,7 +90,7 @@
         $("#ConfirmDelete").one("click", function () {
             $.ajax({
                 type: "POST",
-                url: "/Konto/Delete/" + $id,
+                url: "@Url.Action("Delete", "Konto")" + "/" + $id,
                 data: { id: $id },
                 success: function () {
                     $("#deleteModal").modal("hide");

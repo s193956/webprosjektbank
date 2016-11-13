@@ -47,12 +47,12 @@
         var passord = $("#passord").val();
 
         Login(login, passord, function (result) {
-            location = "/Admin/Index"
+            location = "@Url.Action("Index", "Admin")"
         });
     });
 
     Login = function (login, passord, done) {
-        $.getJSON("/LoggInn/AdminLogin", { login: login, passord: passord }, function (data) { done(data); });
+        $.getJSON("@Url.Action("AdminLogin", "LoggInn")", { login: login, passord: passord }, function (data) { done(data); });
     }
 </script>
 

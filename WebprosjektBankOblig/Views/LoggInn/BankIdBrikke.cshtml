@@ -18,7 +18,7 @@
         function getNewOtp() {
             var $pnummer = $("#pnummer").val();
             console.log("otp for", $pnummer);
-            $.getJSON("/LoggInn/getNextOTP", { pnummer: $pnummer },
+            $.getJSON("@Url.Action("getNextOTP", "LoggInn")", { pnummer: $pnummer },
                 function (data) {
                     console.log(data);
                     if (data) {
@@ -29,5 +29,6 @@
             );
         }
     </script>
+    
 
 </div>

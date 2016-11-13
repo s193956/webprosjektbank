@@ -29,7 +29,7 @@
 
         $.ajax({
             type: "GET",
-            url: "/Admin/Process",
+            url: "@Url.Action("Process", "Admin")",
             data: { },
             success: function () {
                 $("#loadImg").hide();

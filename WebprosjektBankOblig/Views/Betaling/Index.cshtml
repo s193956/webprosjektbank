@@ -88,7 +88,7 @@
         $("#ConfirmDelete").one("click", function () {
             $.ajax({
                 type: "POST",
-                url: "/Betaling/Slett/" + $id,
+                url: "@Url.Action("Slett", "Betaling")" + "/" + $id,
                 data: { id: $id },
                 success: function () {
                     $("#deleteModal").modal("hide");
