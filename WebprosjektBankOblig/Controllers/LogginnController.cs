@@ -7,7 +7,6 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebprosjektBankOblig.BLL;
-using WebprosjektBankOblig.Models;
 
 namespace WebprosjektBankOblig.Controllers
 {
