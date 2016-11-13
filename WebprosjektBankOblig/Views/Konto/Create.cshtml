@@ -1,6 +1,12 @@
 ﻿@model WebprosjektBankOblig.Models.Konto
 
+
 @{
+    var kontolist = new string[] { "Brukskonto", "Sparekonto" };
+
+    var selectList = new SelectList((from d in kontolist select new { Id = d, Name = d }).ToList(), "Id", "Name");
+
+
     ViewBag.Title = "Ny Konto";
 }
 <div class="container">
@@ -16,7 +22,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.kontotype, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.kontotype, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.kontotype, selectList, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.kontotype, "", new { @class = "text-danger" })
                 </div>
             </div>

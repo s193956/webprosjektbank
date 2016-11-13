@@ -36,7 +36,7 @@ namespace WebprosjektBankOblig.Controllers
 
         public ActionResult BliKunde()
         {
-            return View();
+            return RedirectToAction("Create", "Kunde");
         }
 
         public ActionResult OmOss()
@@ -44,8 +44,15 @@ namespace WebprosjektBankOblig.Controllers
             return View();
         }
 
-        public ActionResult Logginn()
+        public ActionResult Logginn(int? kundeId)
         {
+
+            if (kundeId != null)
+            {
+                ViewBag.Nykunde = true;
+                ViewBag.NykundeId = kundeId.Value;
+            }
+
             return View();
         }
 

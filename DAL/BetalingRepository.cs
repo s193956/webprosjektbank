@@ -18,7 +18,7 @@ namespace WebprosjektBankOblig.DAL
                     where b.Konto.Kunde.Personnummer == pn &&
                     b.Konto.Id == id &&
                     utført.Value ? b.utført == utført : true
-                    orderby b.dato
+                    orderby b.dato descending
                     select b).ToList();
         }
 
@@ -27,7 +27,7 @@ namespace WebprosjektBankOblig.DAL
             return (from b in db.Betalinger
                     where b.Konto.Kunde.Personnummer == pn &&
                     utført.Value ? b.utført == utført : true
-                    orderby b.dato
+                    orderby b.dato descending
                     select b).ToList();
         }
 
@@ -74,7 +74,7 @@ namespace WebprosjektBankOblig.DAL
             db.SaveChanges();
         }
 
-        public void endreBetaling(int id, string frakonto, string tilkonto, string dato, string beløp, string melding)
+        public void endreBetaling(int id, string frakonto, string tilkonto, DateTime dato, string beløp, string melding)
         {
             var bet = db.Betalinger.Find(id);
 

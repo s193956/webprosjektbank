@@ -22,7 +22,7 @@ namespace WebprosjektBankOblig.Models
         [Display(Name = "Dato:")]
         [Required(ErrorMessage = "Dato for transaksjon må oppgis")]
         [DataType(DataType.Date)]
-        public string dato { get; set; }
+        public DateTime dato { get; set; }
 
         [Display(Name = "Beløp:")]
         [Required(ErrorMessage = "Beløp må oppgis")]

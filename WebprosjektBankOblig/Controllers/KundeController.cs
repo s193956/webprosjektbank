@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebprosjektBankOblig.BLL;
 using WebprosjektBankOblig.DAL;
 using WebprosjektBankOblig.Models;
 
@@ -75,13 +76,31 @@ namespace WebprosjektBankOblig.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf")] Kunde kunde)
+        public ActionResult Create([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf,Passord,GjentaPassord")] Kunde kunde)
         {
             if (ModelState.IsValid)
             {
+                var salt = AuthBLL.generateSalt(384);
+                var auth = new Autentisering
+                {
+                    PassordSalt = salt,
+                    PassordHash = AuthBLL.Hash(kunde.Passord, salt),
+                    engangsSeed = AuthBLL.generateSeed(384),
+                    engangsIterasjon = 100000
+                };
+
+                kunde.Autentisering = auth;
+
                 db.Kunder.Add(kunde);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (Session["admin"] != null)
+                {
+                    return RedirectToAction("Index");
+                }else
+                {
+                    return RedirectToAction("LoggInn", "LoggInn", new { kundeId = kunde.Id });
+                }
             }
 
             ViewBag.Id = new SelectList(db.Autentiseringer, "Id", "Id", kunde.Id);
@@ -109,11 +128,17 @@ namespace WebprosjektBankOblig.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf")] Kunde kunde)
+        public ActionResult Edit([Bind(Include = "Id,Personnummer,Navn,Adresse,Tlf,Passord,GjentaPassord")] Kunde kunde)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(kunde).State = EntityState.Modified;
+
+                var auth = db.Autentiseringer.Find(kunde.Id);
+                auth.PassordHash = AuthBLL.Hash(kunde.Passord, auth.PassordSalt);
+
+                db.Entry(auth).State = EntityState.Modified;
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
