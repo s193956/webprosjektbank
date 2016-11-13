@@ -1,37 +1,10 @@
 ﻿@{
     ViewBag.Title = "Innlogging";
-
-    if (ViewBag.Nykunde != null)
-    {
-        <!-- Modal -->
-        <div class="modal fade" id="nykundeModal" role="dialog" aria-hidden="true" data-backdrop="false">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h2 class="modal-title">Velkommen som ny kunde!</h2>
-                    </div>
-                    <div class="modal-body">
-                        <p>Gratulerer med ny konto hos WPB. Din BankID brikke: @Html.ActionLink("BankID Brikke", "BankIdBrikke", new { id = ViewBag.NykundeId }, new { @class = "btn btn-default", target = "_blank" })</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a data-dismiss="modal" class="btn btn-block btn-success">Logg inn</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            $(function () {
-                $("#nykundeModal").modal("show");
-            });
-        </script>
-    }
 }
 <script>
     function validatePersonnummer() {
         var $personnummer = $("#personnummer").val();
-        console.log("validate", $personnummer   );
+        console.log("validate", $personnummer);
         $.getJSON("@Url.Action("Personnummer", "LoggInn")", { personnummer: $personnummer },
             function (data) {
                 console.log(data);
@@ -87,6 +60,13 @@
     }
 </script>
 <div class="container">
+    @{if (ViewBag.Nykunde != null)
+        {
+            <div class="alert alert-success text-center">
+                <p>Gratulerer med ny konto hos WPB. Din BankID brikke: @Html.ActionLink("BankID Brikke", "BankIdBrikke", new { id = ViewBag.NykundeId }, new { @class = "btn btn-default", target = "_blank" })</p>
+            </div>
+        }
+    }
     <div class="row">
         <div class="col-md-12 text-center">
             <h1>BankID</h1>
