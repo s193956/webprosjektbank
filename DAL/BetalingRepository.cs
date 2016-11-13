@@ -14,12 +14,14 @@ namespace WebprosjektBankOblig.DAL
 
         public List<Betaling> hentBetalinger(string pn, int id, bool? behandlet)
         {
+            return db.Kontoer.Find(id).Betalinger.Where(x => behandlet.Value ? x.behandlet == behandlet : true).OrderByDescending(x => x.dato).ToList();
+            /*
             return (from b in db.Betalinger
                     where b.Konto.Kunde.Personnummer == pn &&
                     b.Konto.Id == id &&
                     behandlet.Value ? b.behandlet == behandlet : true
                     orderby b.dato descending
-                    select b).ToList();
+                    select b).ToList();*/
         }
 
         public List<Betaling> hentBetalinger(string pn, bool? behandlet)

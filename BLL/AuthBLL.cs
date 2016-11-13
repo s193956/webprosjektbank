@@ -266,7 +266,7 @@ namespace WebprosjektBankOblig.BLL
 
                 Random r = new Random();
 
-                for (int i = 0; i < 213; i++)
+                for (int i = 0; i < 32; i++)
                 {
                     Konto konto = null;
 
