@@ -37,6 +37,8 @@ namespace WebprosjektBankOblig.BLL
         public void registrerBetaling(Betaling betaling)
         {
             _repository.lagreBetaling(betaling);
+
+            processPayment(betaling);
         }
 
         public Betaling hentBetaling(int id)
@@ -48,6 +50,8 @@ namespace WebprosjektBankOblig.BLL
         public void endreBetaling(Betaling betaling)
         {
             _repository.endreBetaling(betaling);
+
+            processPayment(betaling);
         }
 
         public void slettBetaling(int id)
@@ -58,6 +62,24 @@ namespace WebprosjektBankOblig.BLL
         public List<Betaling> hentBetalinger()
         {
             return _repository.hentBetalinger();
+        }
+
+        private void processPayment(Betaling betaling)
+        {
+            var db = new BankDbContext();
+            
+            // Skal ikke håndteres idag.
+            if (betaling.dato != DateTime.Today)
+                return;
+
+            bool internalTransaction = db.Kontoer.Any(x => x.kontonr == betaling.tilkonto);
+
+            // Den daglige transaksjonen av betalinger vil ta hånd om denne betalingen.
+            if (!internalTransaction)
+                return;
+
+
+
         }
     }
 }

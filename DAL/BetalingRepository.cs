@@ -73,26 +73,5 @@ namespace WebprosjektBankOblig.DAL
 
             db.SaveChanges();
         }
-
-        public void endreBetaling(int id, string frakonto, string tilkonto, DateTime dato, string beløp, string melding)
-        {
-            var bet = db.Betalinger.Find(id);
-
-            if (bet == null)
-                throw new Exception("Betalingen finnes ikke!");
-
-            bet.frakonto = frakonto;
-            bet.tilkonto = tilkonto;
-            bet.dato = dato;
-            bet.beløp = beløp;
-            bet.melding = melding;
-
-            if (!db.ChangeTracker.HasChanges())
-            {
-                throw new Exception("HVA FAEN I HELVETE ER DET SOM FOREGÅR");
-            }
-
-            db.SaveChanges();
-        }
     }
 }
